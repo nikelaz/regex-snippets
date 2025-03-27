@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/code-highlight": "^7.17.3",
     "@mantine/core": "7.17.2",
     "@mantine/hooks": "7.17.2",
     "@tabler/icons-react": "3.31.0",
@@ -26,6 +27,5 @@
     "postcss-preset-mantine": "1.17.0",
     "postcss-simple-vars": "7.0.1",
     "typescript": "5.8.2"
-  },
-  "packageManager": "yarn@4.7.0"
+  }
 }
