@@ -1,7 +1,8 @@
 'use client';
 
-import styles from './header.module.css';
-import { AppShell, Burger, Group, Autocomplete, Text, Anchor, Container } from '@mantine/core';
+import headerStyles from './header.module.css';
+import tocStyles from './toc.module.css';
+import { AppShell, Burger, Group, Autocomplete, Text, Anchor, Container, Flex, TableOfContents } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import Logo from '../(components)/logo';
@@ -22,7 +23,7 @@ const Home = ({children}: any) => {
       padding="md"
     >
       <AppShell.Header>
-        <Group className={styles.header}>
+        <Group className={headerStyles.header}>
           <Group>
             <Burger
               opened={opened}
