@@ -439,7 +439,7 @@ const Time = () => {
           <Table.Tbody>{testCaseRows(testCases12)}</Table.Tbody>
         </Table>
       </Stack>
-     </Stack>
+    </Stack>
   );
 };
 
