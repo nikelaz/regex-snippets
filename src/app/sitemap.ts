@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
-
-const BASE_URL = 'https://regex-snippets.com';
+import { BASE_URL } from './lib/seo';
 
 const routes = [
   { path: '/', priority: 1.0, changeFrequency: 'weekly' as const },
