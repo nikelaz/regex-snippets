@@ -117,15 +117,16 @@ import (
 )
 
 func isValidPhone(phone string) bool {
-    re := regexp.MustCompile(\`${phoneRegexNational}\`)
+    phoneRegex := "${phoneRegexNational}"
+    re := regexp.MustCompile(phoneRegex)
     return re.MatchString(phone)
 }`;
 
 const swiftSnippetNational = `import Foundation
 
 func isValidPhone(_ phone: String) -> Bool {
-    let regex = try! NSRegularExpression(pattern: "${phoneRegexNational}")
-    return regex.firstMatch(in: phone, range: NSRange(location: 0, length: phone.utf16.count)) != nil
+    let phoneRegex = "${phoneRegexNational}"
+    return NSPredicate(format: "SELF MATCHES %@", phoneRegex).evaluate(with: phone)
 }`;
 
 const csharpSnippetNational = `using System;
