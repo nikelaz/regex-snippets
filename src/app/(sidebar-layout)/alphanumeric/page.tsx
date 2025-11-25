@@ -84,7 +84,7 @@ const phpSnippet = `
 <?php
 function isValidAlphanumeric($input) {
   $alphanumericRegex = "${alphanumericRegex}";
-  return preg_match("/" . $alphanumericRegex . "/", $input);
+  return preg_match("#" . $alphanumericRegex . "#", $input);
 }
 ?>
 `;
@@ -145,7 +145,7 @@ public class AlphanumericValidator {
 
 const phpSnippetBasic = `<?php
 function isValidAlphanumeric($input) {
-    return preg_match("/${alphanumericRegexWithUnderscores}/", $input);
+    return preg_match("#${alphanumericRegexWithUnderscores}#", $input);
 }`;
 
 const testCases = [
