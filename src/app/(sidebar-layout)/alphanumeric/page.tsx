@@ -1,6 +1,6 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
+import { Title, Text, Code, List, Table, Tabs, Stack, ThemeIcon } from '@mantine/core';
 import {
   IconCheck,
   IconX,
@@ -36,7 +36,6 @@ const goSnippet = `
 package main
 
 import (
-  "fmt"
   "regexp"
 )
 
@@ -112,7 +111,6 @@ fn is_valid_alphanumeric(input: &str) -> bool {
 const goSnippetBasic = `package main
 
 import (
-    "fmt"
     "regexp"
 )
 
