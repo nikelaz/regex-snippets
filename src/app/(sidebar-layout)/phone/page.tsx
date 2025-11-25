@@ -140,7 +140,7 @@ class Program {
 
 const javaSnippetNational = `import java.util.regex.*;
 
-public class PhoneValidator {
+public class Application {
     public static boolean isValidPhone(String phone) {
         return Pattern.matches("${phoneRegexNational}", phone);
     }
