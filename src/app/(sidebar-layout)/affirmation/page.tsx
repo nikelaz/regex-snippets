@@ -7,7 +7,7 @@ import {
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
 
-const affirmationRegex = `^(?i)(y|yes|yeah|yep|yup|true|t|ok|okay|sure|affirmative|1|on|enable|enabled|accept|accepted|confirm|confirmed|agree|agreed)$`;
+const affirmationRegex = `^(y|yes|yeah|yep|yup|true|t|ok|okay|sure|affirmative|1|on|enable|enabled|accept|accepted|confirm|confirmed|agree|agreed)$`;
 
 const jsSnippet = `
 const affirmationRegex = /^(y|yes|yeah|yep|yup|true|t|ok|okay|sure|affirmative|1|on|enable|enabled|accept|accepted|confirm|confirmed|agree|agreed)$/i;
@@ -19,14 +19,14 @@ import re
 
 def is_affirmation(input):
   affirmationRegex = r"${affirmationRegex}"
-  return re.match(affirmationRegex, input) is not None
+  return re.fullmatch(affirmationRegex, input, re.IGNORECASE) is not None
 `;
 
 const rustSnippet = `
 use regex::Regex;
 
 fn is_affirmation(input: &str) -> bool {
-  let affirmationRegex = Regex::new("${affirmationRegex}")
+  let affirmationRegex = Regex::new("(?i)${affirmationRegex}")
     .expect("Could not parse affirmation validation regex");
   affirmationRegex.is_match(input)
 }
@@ -40,7 +40,7 @@ import (
 )
 
 func isAffirmation(input string) bool {
-  affirmationRegex := "${affirmationRegex}"
+  affirmationRegex := "(?i)${affirmationRegex}"
   re := regexp.MustCompile(affirmationRegex)
   return re.MatchString(input)
 }
@@ -50,7 +50,7 @@ const swiftSnippet = `
 import Foundation
 
 func isAffirmation(_ input: String) -> Bool {
-  let affirmationRegex = "${affirmationRegex}"
+  let affirmationRegex = "(?i)${affirmationRegex}"
   return NSPredicate(format: "SELF MATCHES %@", affirmationRegex).evaluate(with: input)
 }
 `;
@@ -62,7 +62,7 @@ using System.Text.RegularExpressions;
 class Application {
   static bool IsAffirmation(string input) {
     string affirmationRegex = "${affirmationRegex}";
-    return Regex.IsMatch(input, affirmationRegex);
+    return Regex.IsMatch(input, affirmationRegex, RegexOptions.IgnoreCase);
   }
 }
 `;
@@ -73,7 +73,7 @@ import java.util.regex.*;
 public class Application {
   public static boolean isAffirmation(String input) {
     String affirmationRegex = "${affirmationRegex}";
-    Pattern pattern = Pattern.compile(affirmationRegex);
+    Pattern pattern = Pattern.compile(affirmationRegex, Pattern.CASE_INSENSITIVE);
     Matcher matcher = pattern.matcher(input);
     return matcher.matches();
   }
@@ -84,7 +84,7 @@ const phpSnippet = `
 <?php
 function isAffirmation($input) {
   $affirmationRegex = "${affirmationRegex}";
-  return preg_match("/" . $affirmationRegex . "/", $input);
+  return preg_match("/" . $affirmationRegex . "/i", $input);
 }
 ?>
 `;
