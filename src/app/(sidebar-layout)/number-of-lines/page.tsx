@@ -332,7 +332,7 @@ const testCasesMin: TestCase[] = [
 ];
 
 const testCasesMax: TestCase[] = [
-  { text: "", valid: true, description: "Empty string (0 lines)" },
+  { text: "", valid: true, description: "Empty string" },
   { text: "Single line", valid: true, description: "1 line" },
   { text: "Line 1\nLine 2\nLine 3\nLine 4\nLine 5", valid: true, description: "5 lines" },
   { text: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20", valid: true, description: "20 lines (maximum boundary)" },
