@@ -50,7 +50,7 @@ fn is_valid_line_count(text: &str) -> bool {
 
 // For configurable min/max:
 fn validate_line_count(text: &str, min: usize, max: usize) -> bool {
-  let lines = text.lines().count();
+  let lines = text.matches('\\n').count() + 1;
   lines >= min && lines <= max
 }
 `;
