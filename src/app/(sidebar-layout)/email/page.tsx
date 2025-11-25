@@ -367,7 +367,7 @@ const Email = () => {
             <CodeHighlight code={jsSnippetBasic.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pythonSnippetBasic.trim()} language="python" />
+            <CodeHighlight code={pythonSnippetBasic.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
             <CodeHighlight code={rustSnippetBasic.trim()} language="rust" />
