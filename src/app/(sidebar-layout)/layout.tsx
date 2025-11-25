@@ -8,9 +8,41 @@ import { IconSearch } from '@tabler/icons-react';
 import Logo from '../(components)/logo';
 import Link from 'next/link';
 import Nav from '../(components)/nav/nav';
+import { useState, useMemo } from 'react';
+import Fuse from 'fuse.js';
+import { useRouter } from 'next/navigation';
+import { searchData } from './searchData';
 
 const Home = ({children}: any) => {
   const [opened, { toggle }] = useDisclosure();
+  const [searchValue, setSearchValue] = useState('');
+  const router = useRouter();
+
+  // Configure Fuse.js for fuzzy search
+  const fuse = useMemo(() => new Fuse(searchData, {
+    keys: ['label', 'keywords'],
+    threshold: 0.4, // 0 = exact match, 1 = match anything
+    includeScore: true,
+    minMatchCharLength: 2,
+  }), []);
+
+  // Get search results
+  const searchResults = useMemo(() => {
+    if (!searchValue.trim()) {
+      return searchData.map(item => item.label);
+    }
+    const results = fuse.search(searchValue);
+    return results.map(result => result.item.label);
+  }, [searchValue, fuse]);
+
+  // Handle selection
+  const handleSearchSelect = (value: string) => {
+    const item = searchData.find(item => item.label === value);
+    if (item) {
+      router.push(item.link);
+      setSearchValue('');
+    }
+  };
 
   return (
     <AppShell
@@ -42,7 +74,11 @@ const Home = ({children}: any) => {
             <Autocomplete
               placeholder="Search"
               leftSection={<IconSearch size={16} stroke={1.5} />}
-              data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
+              data={searchResults}
+              value={searchValue}
+              onChange={setSearchValue}
+              onOptionSubmit={handleSearchSelect}
+              limit={10}
             />
           </Group>
         </Group>
