@@ -443,7 +443,7 @@ const TextLength = () => {
             <CodeHighlight code={jsSnippetMin.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pySnippetMin.trim()} language="python" />
+            <CodeHighlight code={pySnippetMin.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
             <CodeHighlight code={rustSnippetMin.trim()} language="rust" />
@@ -524,7 +524,7 @@ const TextLength = () => {
             <CodeHighlight code={jsSnippetMax.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pySnippetMax.trim()} language="python" />
+            <CodeHighlight code={pySnippetMax.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
             <CodeHighlight code={rustSnippetMax.trim()} language="rust" />
