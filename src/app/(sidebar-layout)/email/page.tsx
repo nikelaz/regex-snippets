@@ -191,8 +191,13 @@ const testCasesBasic = [
   { email: "username@example-.com", valid: true },
 ];
 
+interface TestCase {
+  email: string;
+  valid: boolean;
+}
+
 const Email = () => {
-  const testCaseRows = (data) => data.map((element: any) => (
+  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
     <Table.Tr key={element.email}>
       <Table.Td>{element.email}</Table.Td>
       <Table.Td>
