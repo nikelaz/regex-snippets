@@ -215,7 +215,7 @@ const Phone = () => {
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
         <Title order={1}>Phone Number Validation Regular Expression</Title>
-        <Text>Phone number validation can follow the <Anchor href="https://www.itu.int/rec/T-REC-E.164/" target="_blank" rel="noopener" underline="always">E.164 international format</Anchor>, which is the standard for international telephone numbering. E.164 numbers are formatted with a plus sign (+) followed by the country code and subscriber number, with a maximum of 15 digits total.</Text>
+        <Text>Phone number validation can follow the <Anchor href="https://www.itu.int/rec/T-REC-E.164/" target="_blank" rel="noopener noreferrer" underline="always">E.164 international format</Anchor>, which is the standard for international telephone numbering. E.164 numbers are formatted with a plus sign (+) followed by the country code and subscriber number, with a maximum of 15 digits total.</Text>
       </Stack>
       <Stack gap="lg">
         <Title order={2}>International Format (E.164)</Title>
@@ -392,7 +392,7 @@ const Phone = () => {
           </Table.Thead>
           <Table.Tbody>{testCaseRows(testCasesNational)}</Table.Tbody>
         </Table>
-      </Stack>      
+      </Stack>
      </Stack>
   );
 };
