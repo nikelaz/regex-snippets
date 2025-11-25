@@ -85,7 +85,7 @@ const phpSnippet = `
 <?php
 function isValidPhone($phone) {
   $phoneRegex = "${phoneRegex}";
-  return preg_match("/" . $phoneRegex . "/", $phone);
+  return (bool) preg_match("/" . $phoneRegex . "/", $phone);
 }
 ?>
 `;
@@ -147,7 +147,7 @@ public class PhoneValidator {
 
 const phpSnippetNational = `<?php
 function isValidPhone($phone) {
-    return preg_match("/${phoneRegexNational}/", $phone);
+    return (bool) preg_match("/${phoneRegexNational}/", $phone);
 }`;
 
 const testCases = [
