@@ -38,7 +38,6 @@ const goSnippet = `
 package main
 
 import (
-  "fmt"
   "regexp"
 )
 
@@ -119,7 +118,6 @@ const goSnippetMin = `
 package main
 
 import (
-  "fmt"
   "regexp"
 )
 
@@ -200,7 +198,6 @@ const goSnippetMax = `
 package main
 
 import (
-  "fmt"
   "regexp"
 )
 
