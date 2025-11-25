@@ -393,7 +393,7 @@ const Phone = () => {
           <Table.Tbody>{testCaseRows(testCasesNational)}</Table.Tbody>
         </Table>
       </Stack>
-     </Stack>
+    </Stack>
   );
 };
 
