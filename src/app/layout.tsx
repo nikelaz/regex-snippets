@@ -51,6 +51,8 @@ const RootLayout = ({ children }: { children: any }) => {
       </head>
       <body>
         <MantineProvider theme={theme}>{children}</MantineProvider>
+        <script data-goatcounter="https://regex-snippets.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
       </body>
     </html>
   );
