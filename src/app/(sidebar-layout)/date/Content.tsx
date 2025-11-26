@@ -296,7 +296,7 @@ const Date = () => {
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
         <Title order={1}>Date Validation Regular Expression</Title>
-        <Text>A properly formatted date should follow the <Anchor href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener" underline="always">ISO 8601</Anchor> standard (YYYY-MM-DD) for consistency and international compatibility. This format is widely supported by programming languages and databases, making it ideal for data interchange and storage.</Text>
+        <Text>A properly formatted date should follow the <Anchor href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener" underline="always">ISO 8601</Anchor> standard (YYYY-MM-DD) for consistency and international compatibility. This format is widely supported by programming languages and databases, making it ideal for data interchange and storage. For complete datetime validation, you may also need <Anchor href="/time" underline="always">time validation</Anchor>.</Text>
       </Stack>
       <Stack gap="lg">
         <Title order={2}>Recommended Solution</Title>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Stack, ThemeIcon, Alert } from '@mantine/core';
+import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon, Alert } from '@mantine/core';
 import {
   IconCheck,
   IconX,
@@ -362,7 +362,7 @@ const NumberOfLines = () => {
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
         <Title order={1}>Number of Lines Validation Regular Expression</Title>
-        <Text>Validating the number of lines in text is essential for forms, comments, descriptions, and multi-line input fields. Regular expressions can enforce minimum, maximum, or specific line count ranges to ensure content meets formatting requirements. This is particularly useful for limiting feedback forms, code snippets, addresses, and other structured text inputs.</Text>
+        <Text>Validating the number of lines in text is essential for forms, comments, descriptions, and multi-line input fields. Regular expressions can enforce minimum, maximum, or specific line count ranges to ensure content meets formatting requirements. This is particularly useful for limiting feedback forms, code snippets, addresses, and other structured text inputs. For validating character length of text, see the <Anchor href="/text-length" underline="always">text length validation article</Anchor>.</Text>
       </Stack>
 
       <Alert variant="light" color="blue" title="Platform Considerations" icon={<IconInfoCircle />}>

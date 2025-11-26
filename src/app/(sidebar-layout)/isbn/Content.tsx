@@ -229,7 +229,7 @@ const ISBN = () => {
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
         <Title order={1}>ISBN Validation Regular Expression</Title>
-        <Text>An ISBN (International Standard Book Number) is a unique identifier for books. There are two formats: ISBN-10 (10 digits, with the last digit potentially being X) and ISBN-13 (13 digits starting with 978 or 979). These regular expressions validate the format of ISBN numbers without hyphens or spaces.</Text>
+        <Text>An ISBN (International Standard Book Number) is a unique identifier for books. There are two formats: ISBN-10 (10 digits, with the last digit potentially being X) and ISBN-13 (13 digits starting with 978 or 979). These regular expressions validate the format of ISBN numbers without hyphens or spaces. ISBNs are a specialized type of <Anchor href="/numbers" underline="always">number pattern</Anchor>.</Text>
       </Stack>
       <Stack gap="lg">
         <Title order={2}>ISBN-10 Validation</Title>

@@ -426,6 +426,9 @@ const Numbers = () => {
           <List.Item>
             These regex patterns validate <strong>format</strong> only. For range validation, use additional logic after regex matching.
           </List.Item>
+          <List.Item>
+            For specialized number patterns, see: <Anchor href="/phone" underline="always">phone numbers</Anchor>, <Anchor href="/credit-debit-card-number" underline="always">credit card numbers</Anchor>, <Anchor href="/social-security-number" underline="always">social security numbers</Anchor>, <Anchor href="/isbn" underline="always">ISBN</Anchor>, and <Anchor href="/zip-code" underline="always">ZIP codes</Anchor>.
+          </List.Item>
         </List>
       </Stack>
     </Stack>

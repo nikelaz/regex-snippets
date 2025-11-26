@@ -143,7 +143,7 @@ const Domain = () => {
         <Text>
           A valid domain name follows the rules defined in <Anchor href="https://www.rfc-editor.org/rfc/rfc1035" target="_blank" rel="noopener" underline="always">RFC 1035</Anchor> and <Anchor href="https://www.rfc-editor.org/rfc/rfc1123" target="_blank" rel="noopener" underline="always">RFC 1123</Anchor>. 
           Domain names consist of labels separated by dots, where each label can contain letters, numbers, and hyphens (but cannot start or end with a hyphen). 
-          The top-level domain (TLD) must be at least 2 characters long and consist of letters only.
+          The top-level domain (TLD) must be at least 2 characters long and consist of letters only. Domain names are used in <Anchor href="/email" underline="always">email addresses</Anchor>, <Anchor href="/url-and-path" underline="always">URLs</Anchor>, and other network identifiers.
         </Text>
       </Stack>
       <Stack gap="lg">
@@ -203,7 +203,7 @@ const Domain = () => {
             Single-label domains (e.g., &quot;localhost&quot;) are not accepted by this pattern as they lack a TLD.
           </List.Item>
           <List.Item>
-            For email validation, use the domain part of the email regex pattern as it may have different requirements.
+            For network identifiers, you may also need <Anchor href="/ip-address" underline="always">IP address validation</Anchor> as an alternative to domain names.
           </List.Item>
         </List>
       </Stack>

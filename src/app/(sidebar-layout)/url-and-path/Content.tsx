@@ -142,7 +142,7 @@ const URLAndPath = () => {
         <Title order={1}>URL & Path Validation Regular Expression</Title>
         <Text>
           A valid URL (Uniform Resource Locator) follows the format defined in <Anchor href="https://www.rfc-editor.org/rfc/rfc3986" target="_blank" rel="noopener" underline="always">RFC 3986</Anchor>. 
-          This regex validates HTTP and HTTPS URLs with optional www prefix, domain names, paths, query strings, and fragments. 
+          This regex validates HTTP and HTTPS URLs with optional www prefix, <Anchor href="/domain" underline="always">domain names</Anchor>, paths, query strings, and fragments. 
           URLs are essential for web navigation and API endpoints.
         </Text>
       </Stack>
@@ -169,7 +169,7 @@ const URLAndPath = () => {
             <Code>{`(?:www\\.)?`}</Code> - Optional &quot;www.&quot; prefix.
           </List.Item>
           <List.Item>
-            <Code>{`[-a-zA-Z0-9@:%._\\+~#=]{1,256}`}</Code> - Domain name or subdomain (1-256 characters).
+            <Code>{`[-a-zA-Z0-9@:%._\\+~#=]{1,256}`}</Code> - Domain name or subdomain (1-256 characters). See <Anchor href="/domain" underline="always">domain validation</Anchor> for more details.
           </List.Item>
           <List.Item>
             <Code>{`\\.[a-zA-Z0-9()]{1,6}`}</Code> - Top-level domain (e.g., .com, .org) with 1-6 characters.
@@ -198,7 +198,7 @@ const URLAndPath = () => {
             Port numbers are implicitly allowed through the character class but not explicitly validated.
           </List.Item>
           <List.Item>
-            IP addresses (IPv4/IPv6) are not fully supported by this pattern. Use a dedicated IP validation regex if needed.
+            IP addresses (IPv4/IPv6) are not fully supported by this pattern. Use a dedicated <Anchor href="/ip-address" underline="always">IP address validation regex</Anchor> if needed.
           </List.Item>
           <List.Item>
             International domain names (IDN) must be in Punycode format to be validated correctly.

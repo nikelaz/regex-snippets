@@ -1,6 +1,6 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Stack, ThemeIcon } from '@mantine/core';
+import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
 import {
   IconCheck,
   IconX,
@@ -314,7 +314,7 @@ const TextLength = () => {
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
         <Title order={1}>Text Length Validation Regular Expression</Title>
-        <Text>Text length validation is a common requirement in forms and data validation. Regular expressions provide a concise way to enforce minimum length, maximum length, or a specific length range for text input. This is particularly useful for passwords, usernames, comments, and other user-generated content.</Text>
+        <Text>Text length validation is a common requirement in forms and data validation. Regular expressions provide a concise way to enforce minimum length, maximum length, or a specific length range for text input. This is particularly useful for passwords, usernames, comments, and other user-generated content. For validating the number of lines in text, see the <Anchor href="/number-of-lines" underline="always">number of lines validation article</Anchor>.</Text>
       </Stack>
       <Stack gap="lg">
         <Title order={2}>Length Range Validation (8-32 characters)</Title>
