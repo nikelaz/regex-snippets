@@ -257,7 +257,7 @@ const Time = () => {
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
         <Title order={1}>Time Validation Regular Expression</Title>
-        <Text>Time validation requires handling both 24-hour and 12-hour formats. The 24-hour format (also known as military time) follows the <Anchor href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener" underline="always">ISO 8601</Anchor> standard, while the 12-hour format with AM/PM is commonly used in everyday contexts, particularly in the United States.</Text>
+        <Text>Time validation requires handling both 24-hour and 12-hour formats. The 24-hour format (also known as military time) follows the <Anchor href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener" underline="always">ISO 8601</Anchor> standard, while the 12-hour format with AM/PM is commonly used in everyday contexts, particularly in the United States. For complete datetime validation, combine this with <Anchor href="/date" underline="always">date validation</Anchor>.</Text>
       </Stack>
 
       <Stack gap="lg">

@@ -146,7 +146,7 @@ const CreditDebitCard = () => {
           A valid credit or debit card number follows specific patterns defined by card issuers. 
           This regex validates the format of major card types including Visa, Mastercard, American Express, 
           Discover, Diners Club, and JCB based on their IIN (Issuer Identification Number) ranges and length requirements. 
-          Card numbers should be validated without spaces or dashes.
+          Card numbers should be validated without spaces or dashes. Credit card numbers are a specialized type of <Anchor href="/numbers" underline="always">number pattern</Anchor>.
         </Text>
       </Stack>
       <Stack gap="lg">

@@ -139,7 +139,7 @@ const ZipCode = () => {
         <Text>
           A valid U.S. ZIP Code follows the format defined by the United States Postal Service (USPS). 
           It can be either a 5-digit ZIP code (e.g., 12345) or a ZIP+4 code with an optional 4-digit extension 
-          (e.g., 12345-6789). This regex validates both formats according to <Anchor href="https://pe.usps.com/text/pub28/28c2_001.htm" target="_blank" rel="noopener" underline="always">USPS Publication 28</Anchor>.
+          (e.g., 12345-6789). This regex validates both formats according to <Anchor href="https://pe.usps.com/text/pub28/28c2_001.htm" target="_blank" rel="noopener" underline="always">USPS Publication 28</Anchor>. ZIP codes are a specialized type of <Anchor href="/numbers" underline="always">number pattern</Anchor>.
         </Text>
       </Stack>
       <Stack gap="lg">

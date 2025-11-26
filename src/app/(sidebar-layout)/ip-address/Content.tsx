@@ -242,7 +242,7 @@ const IPAddress = () => {
           IP addresses are numerical labels assigned to devices on a network. There are two versions in use: 
           IPv4 (defined in <Anchor href="https://www.rfc-editor.org/rfc/rfc791" target="_blank" rel="noopener" underline="always">RFC 791</Anchor>) and 
           IPv6 (defined in <Anchor href="https://www.rfc-editor.org/rfc/rfc4291" target="_blank" rel="noopener" underline="always">RFC 4291</Anchor>). 
-          These regex patterns validate the format of both IPv4 and IPv6 addresses.
+          These regex patterns validate the format of both IPv4 and IPv6 addresses. IP addresses can be used in <Anchor href="/url-and-path" underline="always">URLs</Anchor> as an alternative to <Anchor href="/domain" underline="always">domain names</Anchor>.
         </Text>
       </Stack>
 

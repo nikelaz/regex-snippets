@@ -217,7 +217,7 @@ const SocialSecurityNumber = () => {
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
         <Title order={1}>Social Security Number (SSN) Validation Regular Expression</Title>
-        <Text>A valid U.S. Social Security Number follows the format <Code>XXX-XX-XXXX</Code> where each X is a digit. However, not all combinations are valid. The Social Security Administration has specific rules about which numbers can be assigned, making proper validation more complex than just checking the format.</Text>
+        <Text>A valid U.S. Social Security Number follows the format <Code>XXX-XX-XXXX</Code> where each X is a digit. However, not all combinations are valid. The Social Security Administration has specific rules about which numbers can be assigned, making proper validation more complex than just checking the format. SSNs are a specialized type of <Anchor href="/numbers" underline="always">number pattern</Anchor>.</Text>
       </Stack>
 
       <Alert variant="light" color="blue" icon={<IconShieldLock />}>

@@ -145,7 +145,7 @@ const WindowsPath = () => {
         <Text>
           Windows file system paths use backslashes as separators and start with a drive letter followed by a colon. 
           Path components cannot contain certain reserved characters: <Code>\ / : * ? &quot; &lt; &gt; |</Code>. 
-          This regex validates Windows path formats according to <Anchor href="https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file" target="_blank" rel="noopener" underline="always">Windows file naming conventions</Anchor>.
+          This regex validates Windows path formats according to <Anchor href="https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file" target="_blank" rel="noopener" underline="always">Windows file naming conventions</Anchor>. For Unix/Linux paths, see the <Anchor href="/unix-path" underline="always">Unix path validation article</Anchor>.
         </Text>
       </Stack>
       <Stack gap="lg">

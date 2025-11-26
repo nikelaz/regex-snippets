@@ -142,7 +142,7 @@ const UnixPath = () => {
           Unix and Linux file system paths follow a hierarchical structure starting from the root directory (/). 
           Paths can be absolute (starting with /) or relative (starting with ./ or ../). 
           This regex validates common Unix path formats used in Linux, macOS, and other Unix-like operating systems, 
-          following the <Anchor href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_170" target="_blank" rel="noopener" underline="always">POSIX pathname specification</Anchor>.
+          following the <Anchor href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_170" target="_blank" rel="noopener" underline="always">POSIX pathname specification</Anchor>. For Windows paths, see the <Anchor href="/windows-path" underline="always">Windows path validation article</Anchor>.
         </Text>
       </Stack>
       <Stack gap="lg">

@@ -218,7 +218,7 @@ const Email = () => {
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
         <Title order={1}>Email Validation Regular Expression</Title>
-        <Text>A well-formed email address follows a standard format defined by <Anchor href="https://www.rfc-editor.org/rfc/rfc5322.html" target="_blank" rel="noopener" underline="always">RFC 5322</Anchor>, but practical validation often balances strictness with usability as most allowed patterns in the standard are not allowed in the actual used email clients. A regular expression that supports the full standard would be very complex and unmaintainable.</Text>
+        <Text>A well-formed email address follows a standard format defined by <Anchor href="https://www.rfc-editor.org/rfc/rfc5322.html" target="_blank" rel="noopener" underline="always">RFC 5322</Anchor>, but practical validation often balances strictness with usability as most allowed patterns in the standard are not allowed in the actual used email clients. A regular expression that supports the full standard would be very complex and unmaintainable. Email addresses consist of a local part and a <Anchor href="/domain" underline="always">domain name</Anchor> separated by an @ symbol.</Text>
       </Stack>
       <Stack gap="lg">
         <Title order={2}>Recommended Solution</Title>
@@ -246,7 +246,7 @@ const Email = () => {
             <Code>{`@`}</Code> - The required separator.
           </List.Item>
           <List.Item>
-            <Code>{`[a-zA-Z0-9-]+`}</Code> - Domain name. Allows letters, numbers, and hyphens.
+            <Code>{`[a-zA-Z0-9-]+`}</Code> - Domain name. Allows letters, numbers, and hyphens. For more details on domain validation, see the <Anchor href="/domain" underline="always">domain validation article</Anchor>.
           </List.Item>
           <List.Item>
             <Code>{`(?:\.[a-zA-Z0-9-]+)*`}</Code> - Subdomains. Allows multiple levels like mail.example.com.
