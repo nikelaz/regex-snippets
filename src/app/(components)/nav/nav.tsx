@@ -52,7 +52,11 @@ const templates = [
   { link: '/windows-path', label: 'Windows Path', icon: IconBrandWindows },
 ];
 
-const Nav = () => {
+type NavProps = Readonly<{
+  toggleMobileNav: () => void;
+}>;
+
+const Nav = (props: NavProps) => {
   const [active, setActive] = useState('Billing');
   const path = usePathname();
 
@@ -64,6 +68,7 @@ const Nav = () => {
       underline="never"
       href={item.link}
       key={item.link}
+      onClick={props.toggleMobileNav}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>

@@ -1,8 +1,7 @@
 'use client';
 
 import headerStyles from './header.module.css';
-import tocStyles from './toc.module.css';
-import { AppShell, Burger, Group, Autocomplete, Text, Anchor, Container, Flex, TableOfContents } from '@mantine/core';
+import { AppShell, Burger, Group, Autocomplete, Text, Anchor, Container } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import Logo from '../(components)/logo';
@@ -66,7 +65,7 @@ const Home = ({children}: any) => {
             <Anchor component={Link} underline="never" href="/">
               <Group justify="center" visibleFrom="xs">
                 <Logo />
-                <Text inline={true} size="lg" fw={600} color="gray.9">RegEx Snippets</Text>
+                <Text inline={true} size="lg" fw={600} c="gray.9">RegEx Snippets</Text>
               </Group>
             </Anchor>
           </Group>
@@ -85,7 +84,7 @@ const Home = ({children}: any) => {
       </AppShell.Header>
 
       <AppShell.Navbar p="md">
-        <Nav />
+        <Nav toggleMobileNav={toggle} />
       </AppShell.Navbar>
 
       <AppShell.Main>
