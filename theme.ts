@@ -1,6 +1,6 @@
 'use client';
 
-import { MantineProvider, createTheme, MantineColorsTuple } from '@mantine/core';
+import { createTheme, MantineColorsTuple } from '@mantine/core';
 
 const myColor: MantineColorsTuple = [
   '#ecefff',

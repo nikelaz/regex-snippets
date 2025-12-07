@@ -1,6 +1,5 @@
 import '@mantine/core/styles.css';
 import '@mantine/code-highlight/styles.css';
-import React from 'react';
 import {
   MantineProvider,
   ColorSchemeScript,
@@ -50,7 +49,9 @@ const RootLayout = ({ children }: { children: any }) => {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          {children}
+        </MantineProvider>
         <script data-goatcounter="https://regex-snippets.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
       </body>

@@ -11,6 +11,31 @@ import { useState, useMemo } from 'react';
 import Fuse from 'fuse.js';
 import { useRouter } from 'next/navigation';
 import { searchData } from './searchData';
+import { CodeHighlightAdapterProvider, createHighlightJsAdapter } from '@mantine/code-highlight';
+import hljs from 'highlight.js/lib/core';
+import jsLang from 'highlight.js/lib/languages/javascript';
+import pyLang from 'highlight.js/lib/languages/python';
+import rsLang from 'highlight.js/lib/languages/rust';
+import goLang from 'highlight.js/lib/languages/go';
+import swiftLang from 'highlight.js/lib/languages/swift';
+import csLang from 'highlight.js/lib/languages/csharp';
+import javaLang from 'highlight.js/lib/languages/java';
+import phpLang from 'highlight.js/lib/languages/php';
+import txtLang from 'highlight.js/lib/languages/plaintext';
+import 'highlight.js/styles/a11y-light.css';
+
+// Register syntax highlighting languages
+hljs.registerLanguage('plaintext', txtLang);
+hljs.registerLanguage('javascript', jsLang);
+hljs.registerLanguage('python', pyLang);
+hljs.registerLanguage('go', goLang);
+hljs.registerLanguage('rust', rsLang);
+hljs.registerLanguage('swift', swiftLang);
+hljs.registerLanguage('csharp', csLang);
+hljs.registerLanguage('java', javaLang);
+hljs.registerLanguage('php', phpLang);
+
+const highlightJsAdapter = createHighlightJsAdapter(hljs);
 
 const Home = ({children}: any) => {
   const [opened, { toggle }] = useDisclosure();
@@ -89,7 +114,9 @@ const Home = ({children}: any) => {
 
       <AppShell.Main>
         <Container py="xl">
-          {children}
+          <CodeHighlightAdapterProvider adapter={highlightJsAdapter}>
+            {children}
+          </CodeHighlightAdapterProvider>
         </Container>
       </AppShell.Main>
     </AppShell>
