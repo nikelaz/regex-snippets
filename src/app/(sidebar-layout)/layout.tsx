@@ -7,6 +7,7 @@ import { IconSearch } from '@tabler/icons-react';
 import Logo from '../(components)/logo';
 import Link from 'next/link';
 import Nav from '../(components)/nav/nav';
+import ColorSchemeToggle from '../(components)/color-scheme-toggle';
 import { useState, useMemo } from 'react';
 import Fuse from 'fuse.js';
 import { useRouter } from 'next/navigation';
@@ -22,7 +23,7 @@ import csLang from 'highlight.js/lib/languages/csharp';
 import javaLang from 'highlight.js/lib/languages/java';
 import phpLang from 'highlight.js/lib/languages/php';
 import txtLang from 'highlight.js/lib/languages/plaintext';
-import 'highlight.js/styles/a11y-light.css';
+import './highlight-theme.css';
 
 // Register syntax highlighting languages
 hljs.registerLanguage('plaintext', txtLang);
@@ -90,7 +91,7 @@ const Home = ({children}: any) => {
             <Anchor component={Link} underline="never" href="/">
               <Group justify="center" visibleFrom="xs">
                 <Logo />
-                <Text inline={true} size="lg" fw={600} c="gray.9">RegEx Snippets</Text>
+                <Text inline={true} size="lg" fw={600} color="var(--color-primary-text)">RegEx Snippets</Text>
               </Group>
             </Anchor>
           </Group>

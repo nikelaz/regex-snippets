@@ -79,7 +79,7 @@ const Nav = (props: NavProps) => {
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
         {getLinks(main)}
-        <Text tt="uppercase" size="sm" color="gray.7" fw={600} px="sm" mt="md" mb="sm">Validation Templates</Text>
+        <Text tt="uppercase" size="sm" color="var(--color-primary-text)" fw={600} px="sm" mt="md" mb="sm">Validation Templates</Text>
         {getLinks(templates)}
       </div>
     </nav>

@@ -7,6 +7,7 @@ import {
 } from '@mantine/core';
 import { theme } from '../../theme';
 import type { Metadata } from 'next';
+import "./style.css";
 
 export const metadata: Metadata = {
   title: {
@@ -41,7 +42,7 @@ const RootLayout = ({ children }: { children: any }) => {
   return (
     <html lang="en" {...mantineHtmlProps}>
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="auto" />
         <link rel="shortcut icon" href="/favicon.svg" />
         <meta
           name="viewport"
@@ -49,7 +50,7 @@ const RootLayout = ({ children }: { children: any }) => {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>
+        <MantineProvider theme={theme} defaultColorScheme="auto">
           {children}
         </MantineProvider>
         <script data-goatcounter="https://regex-snippets.goatcounter.com/count"
