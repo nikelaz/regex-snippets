@@ -7,7 +7,6 @@ import { IconSearch } from '@tabler/icons-react';
 import Logo from '../(components)/logo';
 import Link from 'next/link';
 import Nav from '../(components)/nav/nav';
-import ColorSchemeToggle from '../(components)/color-scheme-toggle';
 import { useState, useMemo } from 'react';
 import Fuse from 'fuse.js';
 import { useRouter } from 'next/navigation';
