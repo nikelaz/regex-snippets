@@ -8,7 +8,7 @@ import {
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
 
-const emailRegex = `^(?!.*\\.\\.)(?!.*\\.$)[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z]{2,}$`;
+export const emailRegex = `^(?!.*\\.\\.)(?!.*\\.$)[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z]{2,}$`;
 
 const jsSnippet = `
 const emailRegex = /${emailRegex}/;
