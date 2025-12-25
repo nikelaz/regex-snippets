@@ -1,6 +1,6 @@
 type TestCase = {
   pattern: string,
-  result: boolean,
+  isValid: boolean,
 };
 
 export default TestCase;

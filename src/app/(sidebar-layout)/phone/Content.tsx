@@ -6,200 +6,39 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
+import type TestCase from '../../../../types/test-case';
+import {
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  testCases,
+  jsSnippetNational,
+  pythonSnippetNational,
+  rustSnippetNational,
+  goSnippetNational,
+  swiftSnippetNational,
+  csharpSnippetNational,
+  javaSnippetNational,
+  phpSnippetNational,
+  testCasesNational,
+} from '../../../../data/phone';
 
-const phoneRegex = `^\\+?[1-9]\\d{1,14}$`;
-
-const jsSnippet = `
-const phoneRegex = /${phoneRegex}/;
-const isValidPhone = (phone) => phoneRegex.test(phone);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_phone(phone):
-  phoneRegex = r"${phoneRegex}"
-  return re.match(phoneRegex, phone) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_phone(phone: &str) -> bool {
-  let phoneRegex = Regex::new("${phoneRegex}")
-    .expect("Could not parse phone validation regex");
-  phoneRegex.is_match(phone)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidPhone(phone string) bool {
-  phoneRegex := "${phoneRegex}"
-  re := regexp.MustCompile(phoneRegex)
-  return re.MatchString(phone)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidPhone(_ phone: String) -> Bool {
-  let phoneRegex = "${phoneRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", phoneRegex).evaluate(with: phone)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidPhone(string phone) {
-    string phoneRegex = "${phoneRegex}";
-    return Regex.IsMatch(phone, phoneRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidPhone(String phone) {
-    String phoneRegex = "${phoneRegex}";
-    Pattern pattern = Pattern.compile(phoneRegex);
-    Matcher matcher = pattern.matcher(phone);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidPhone($phone) {
-  $phoneRegex = "${phoneRegex}";
-  return (bool) preg_match("/" . $phoneRegex . "/", $phone);
-}
-?>
-`;
-
-const phoneRegexNational = `^\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$`;
-
-const jsSnippetNational = `const nationalPhoneRegex = /${phoneRegexNational}/;
-const isValidPhone = (phone) => nationalPhoneRegex.test(phone);`;
-
-const pythonSnippetNational = `import re
-
-national_phone_regex = r'${phoneRegexNational}'
-
-def is_valid_phone(phone):
-    return bool(re.match(national_phone_regex, phone))`;
-
-const rustSnippetNational = `use regex::Regex;
-
-fn is_valid_phone(phone: &str) -> bool {
-    let re = Regex::new(r"${phoneRegexNational}").unwrap();
-    re.is_match(phone)
-}`;
-
-const goSnippetNational = `package main
-
-import (
-    "fmt"
-    "regexp"
-)
-
-func isValidPhone(phone string) bool {
-    phoneRegex := "${phoneRegexNational}"
-    re := regexp.MustCompile(phoneRegex)
-    return re.MatchString(phone)
-}`;
-
-const swiftSnippetNational = `import Foundation
-
-func isValidPhone(_ phone: String) -> Bool {
-    let phoneRegex = "${phoneRegexNational}"
-    return NSPredicate(format: "SELF MATCHES %@", phoneRegex).evaluate(with: phone)
-}`;
-
-const csharpSnippetNational = `using System;
-using System.Text.RegularExpressions;
-
-class Program {
-    static bool IsValidPhone(string phone) {
-        return Regex.IsMatch(phone, @"${phoneRegexNational}");
-    }
-}`;
-
-const javaSnippetNational = `import java.util.regex.*;
-
-public class Application {
-    public static boolean isValidPhone(String phone) {
-        return Pattern.matches("${phoneRegexNational}", phone);
-    }
-}`;
-
-const phpSnippetNational = `<?php
-function isValidPhone($phone) {
-    return (bool) preg_match("/${phoneRegexNational}/", $phone);
-}`;
-
-const testCases = [
-  { phone: "+12025550123", valid: true },
-  { phone: "+441234567890", valid: true },
-  { phone: "+33123456789", valid: true },
-  { phone: "+861234567890", valid: true },
-  { phone: "+61212345678", valid: true },
-  { phone: "+81312345678", valid: true },
-  { phone: "15551234567", valid: true },
-  { phone: "+1", valid: false },
-  { phone: "+", valid: false },
-  { phone: "", valid: false },
-  { phone: "123", valid: false },
-  { phone: "+01234567890", valid: false },
-  { phone: "+123456789012345678", valid: false },
-  { phone: "abc123456789", valid: false },
-  { phone: "+1-202-555-0123", valid: false },
-  { phone: "(202) 555-0123", valid: false },
-  { phone: "202.555.0123", valid: false },
-];
-
-const testCasesNational = [
-  { phone: "2025550123", valid: true },
-  { phone: "(202)5550123", valid: true },
-  { phone: "(202) 555-0123", valid: true },
-  { phone: "202-555-0123", valid: true },
-  { phone: "202.555.0123", valid: true },
-  { phone: "202 555 0123", valid: true },
-  { phone: "(202)555-0123", valid: true },
-  { phone: "+12025550123", valid: false },
-  { phone: "123", valid: false },
-  { phone: "", valid: false },
-  { phone: "12345", valid: false },
-  { phone: "(202) 555-012", valid: false },
-  { phone: "202-555-012", valid: false },
-  { phone: "abc-def-ghij", valid: false },
-  { phone: "202-555-01234", valid: false },
-];
-
-interface TestCase {
+interface TestCasePhone {
   phone: string;
   valid: boolean;
 }
 
 const Phone = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.phone}>
-      <Table.Td>{element.phone}</Table.Td>
+    <Table.Tr key={element.pattern}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>

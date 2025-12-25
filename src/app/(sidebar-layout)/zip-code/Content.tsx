@@ -6,120 +6,25 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
-
-const zipCodeRegex = `^\\d{5}(?:-\\d{4})?$`;
-
-const jsSnippet = `
-const zipCodeRegex = /${zipCodeRegex}/;
-const isValidZipCode = (zipCode) => zipCodeRegex.test(zipCode);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_zip_code(zip_code):
-  zipCodeRegex = r"${zipCodeRegex}"
-  return re.match(zipCodeRegex, zip_code) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_zip_code(zip_code: &str) -> bool {
-  let zipCodeRegex = Regex::new("${zipCodeRegex}")
-    .expect("Could not parse ZIP code validation regex");
-  zipCodeRegex.is_match(zip_code)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidZipCode(zipCode string) bool {
-  zipCodeRegex := "${zipCodeRegex}"
-  re := regexp.MustCompile(zipCodeRegex)
-  return re.MatchString(zipCode)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidZipCode(_ zipCode: String) -> Bool {
-  let zipCodeRegex = "${zipCodeRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", zipCodeRegex).evaluate(with: zipCode)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidZipCode(string zipCode) {
-    string zipCodeRegex = "${zipCodeRegex}";
-    return Regex.IsMatch(zipCode, zipCodeRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidZipCode(String zipCode) {
-    String zipCodeRegex = "${zipCodeRegex}";
-    Pattern pattern = Pattern.compile(zipCodeRegex);
-    Matcher matcher = pattern.matcher(zipCode);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidZipCode($zipCode) {
-  $zipCodeRegex = "${zipCodeRegex}";
-  return (bool) preg_match("/" . $zipCodeRegex . "/", $zipCode);
-}
-?>
-`;
-
-const testCases = [
-  { zipCode: "12345", valid: true },
-  { zipCode: "12345-6789", valid: true },
-  { zipCode: "90210", valid: true },
-  { zipCode: "00501", valid: true },
-  { zipCode: "99950-0001", valid: true },
-  { zipCode: "1234", valid: false },
-  { zipCode: "123456", valid: false },
-  { zipCode: "12345-", valid: false },
-  { zipCode: "12345-678", valid: false },
-  { zipCode: "12345-67890", valid: false },
-  { zipCode: "abcde", valid: false },
-  { zipCode: "12 345", valid: false },
-  { zipCode: "12-345", valid: false },
-  { zipCode: "", valid: false },
-  { zipCode: "-1234", valid: false },
-  { zipCode: "12345-abcd", valid: false },
-];
-
-interface TestCase {
-  zipCode: string;
-  valid: boolean;
-}
+import type TestCase from '../../../../types/test-case';
+import {
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  testCases,
+} from '../../../../data/zip-code';
 
 const ZipCode = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.zipCode || 'empty'}>
-      <Table.Td>{element.zipCode || '(empty string)'}</Table.Td>
+    <Table.Tr key={element.pattern || 'empty'}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>

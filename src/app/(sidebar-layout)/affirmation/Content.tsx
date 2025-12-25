@@ -1,157 +1,30 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
+import { Title, Text, Code, List, Table, Tabs, Stack, ThemeIcon } from "@mantine/core";
 import {
   IconCheck,
   IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-const affirmationRegex = `^(y|yes|yeah|yep|yup|true|t|ok|okay|sure|affirmative|1|on|enable|enabled|accept|accepted|confirm|confirmed|agree|agreed)$`;
-
-const jsSnippet = `
-const affirmationRegex = /^(y|yes|yeah|yep|yup|true|t|ok|okay|sure|affirmative|1|on|enable|enabled|accept|accepted|confirm|confirmed|agree|agreed)$/i;
-const isAffirmation = (input) => affirmationRegex.test(input);
-`;
-
-const pySnippet = `
-import re
-
-def is_affirmation(input):
-  affirmationRegex = r"${affirmationRegex}"
-  return re.fullmatch(affirmationRegex, input, re.IGNORECASE) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_affirmation(input: &str) -> bool {
-  let affirmationRegex = Regex::new("(?i)${affirmationRegex}")
-    .expect("Could not parse affirmation validation regex");
-  affirmationRegex.is_match(input)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "regexp"
-)
-
-func isAffirmation(input string) bool {
-  affirmationRegex := "(?i)${affirmationRegex}"
-  re := regexp.MustCompile(affirmationRegex)
-  return re.MatchString(input)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isAffirmation(_ input: String) -> Bool {
-  let affirmationRegex = "(?i)${affirmationRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", affirmationRegex).evaluate(with: input)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsAffirmation(string input) {
-    string affirmationRegex = "${affirmationRegex}";
-    return Regex.IsMatch(input, affirmationRegex, RegexOptions.IgnoreCase);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isAffirmation(String input) {
-    String affirmationRegex = "${affirmationRegex}";
-    Pattern pattern = Pattern.compile(affirmationRegex, Pattern.CASE_INSENSITIVE);
-    Matcher matcher = pattern.matcher(input);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isAffirmation($input) {
-  $affirmationRegex = "${affirmationRegex}";
-  return preg_match("/" . $affirmationRegex . "/i", $input);
-}
-?>
-`;
-
-const testCases = [
-  { input: "yes", valid: true },
-  { input: "Yes", valid: true },
-  { input: "YES", valid: true },
-  { input: "y", valid: true },
-  { input: "Y", valid: true },
-  { input: "true", valid: true },
-  { input: "True", valid: true },
-  { input: "TRUE", valid: true },
-  { input: "t", valid: true },
-  { input: "T", valid: true },
-  { input: "ok", valid: true },
-  { input: "OK", valid: true },
-  { input: "okay", valid: true },
-  { input: "Okay", valid: true },
-  { input: "yeah", valid: true },
-  { input: "yep", valid: true },
-  { input: "yup", valid: true },
-  { input: "sure", valid: true },
-  { input: "affirmative", valid: true },
-  { input: "1", valid: true },
-  { input: "on", valid: true },
-  { input: "On", valid: true },
-  { input: "ON", valid: true },
-  { input: "enable", valid: true },
-  { input: "enabled", valid: true },
-  { input: "accept", valid: true },
-  { input: "accepted", valid: true },
-  { input: "confirm", valid: true },
-  { input: "confirmed", valid: true },
-  { input: "agree", valid: true },
-  { input: "agreed", valid: true },
-  { input: "no", valid: false },
-  { input: "n", valid: false },
-  { input: "false", valid: false },
-  { input: "f", valid: false },
-  { input: "0", valid: false },
-  { input: "off", valid: false },
-  { input: "disable", valid: false },
-  { input: "disabled", valid: false },
-  { input: "reject", valid: false },
-  { input: "decline", valid: false },
-  { input: "negative", valid: false },
-  { input: "", valid: false },
-  { input: " yes ", valid: false },
-  { input: "yes!", valid: false },
-  { input: "maybe", valid: false },
-  { input: "yess", valid: false },
-  { input: "true1", valid: false },
-  { input: "1ok", valid: false },
-];
-
-interface TestCase {
-  input: string;
-  valid: boolean;
-}
+} from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
+import {
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  testCases,
+} from "../../../../data/affirmation";
 
 const Affirmation = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.input}-${index}`}>
-      <Table.Td><Code>{element.input === "" ? "(empty string)" : element.input}</Code></Table.Td>
+    <Table.Tr key={`${element.pattern}-${index}`}>
+      <Table.Td><Code>{element.pattern === "" ? "(empty string)" : element.pattern}</Code></Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>

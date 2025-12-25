@@ -1,212 +1,27 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Stack, ThemeIcon } from '@mantine/core';
+import { Title, Text, Code, List, Table, Tabs, Stack, ThemeIcon } from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
 import {
-  IconCheck,
-  IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-const alphanumericRegex = `^[a-zA-Z0-9]+$`;
-
-const jsSnippet = `
-const alphanumericRegex = /${alphanumericRegex}/;
-const isValidAlphanumeric = (input) => alphanumericRegex.test(input);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_alphanumeric(input):
-  alphanumericRegex = r"${alphanumericRegex}"
-  return re.match(alphanumericRegex, input) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_alphanumeric(input: &str) -> bool {
-  let alphanumericRegex = Regex::new("${alphanumericRegex}")
-    .expect("Could not parse alphanumeric validation regex");
-  alphanumericRegex.is_match(input)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "regexp"
-)
-
-func isValidAlphanumeric(input string) bool {
-  alphanumericRegex := "${alphanumericRegex}"
-  re := regexp.MustCompile(alphanumericRegex)
-  return re.MatchString(input)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidAlphanumeric(_ input: String) -> Bool {
-  let alphanumericRegex = "${alphanumericRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", alphanumericRegex).evaluate(with: input)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidAlphanumeric(string input) {
-    string alphanumericRegex = "${alphanumericRegex}";
-    return Regex.IsMatch(input, alphanumericRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidAlphanumeric(String input) {
-    String alphanumericRegex = "${alphanumericRegex}";
-    Pattern pattern = Pattern.compile(alphanumericRegex);
-    Matcher matcher = pattern.matcher(input);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidAlphanumeric($input) {
-  $alphanumericRegex = "${alphanumericRegex}";
-  return preg_match("/" . $alphanumericRegex . "/", $input);
-}
-?>
-`;
-
-const alphanumericRegexWithUnderscores = `^[a-zA-Z0-9_]+$`;
-
-const jsSnippetBasic = `const basicAlphanumericRegex = /${alphanumericRegexWithUnderscores}/;
-const isValidAlphanumeric = (input) => basicAlphanumericRegex.test(input);`;
-
-const pythonSnippetBasic = `import re
-
-basic_alphanumeric_regex = r'${alphanumericRegexWithUnderscores}'
-
-def is_valid_alphanumeric(input):
-    return bool(re.match(basic_alphanumeric_regex, input))`;
-
-const rustSnippetBasic = `use regex::Regex;
-
-fn is_valid_alphanumeric(input: &str) -> bool {
-    let re = Regex::new(r"${alphanumericRegexWithUnderscores}").unwrap();
-    re.is_match(input)
-}`;
-
-const goSnippetBasic = `package main
-
-import (
-    "regexp"
-)
-
-func isValidAlphanumeric(input string) bool {
-    re := regexp.MustCompile(\`${alphanumericRegexWithUnderscores}\`)
-    return re.MatchString(input)
-}`;
-
-const swiftSnippetBasic = `import Foundation
-
-func isValidAlphanumeric(_ input: String) -> Bool {
-    let regex = try! NSRegularExpression(pattern: "${alphanumericRegexWithUnderscores}")
-    return regex.firstMatch(in: input, range: NSRange(location: 0, length: input.utf16.count)) != nil
-}`;
-
-const csharpSnippetBasic = `using System;
-using System.Text.RegularExpressions;
-
-class Program {
-    static bool IsValidAlphanumeric(string input) {
-        return Regex.IsMatch(input, @"${alphanumericRegexWithUnderscores}");
-    }
-}`;
-
-const javaSnippetBasic = `import java.util.regex.*;
-
-public class AlphanumericValidator {
-    public static boolean isValidAlphanumeric(String input) {
-        return Pattern.matches("${alphanumericRegexWithUnderscores}", input);
-    }
-}`;
-
-const phpSnippetBasic = `<?php
-function isValidAlphanumeric($input) {
-    return preg_match("/${alphanumericRegexWithUnderscores}/", $input);
-}`;
-
-const testCases = [
-  { input: "abc123", valid: true },
-  { input: "ABC", valid: true },
-  { input: "123", valid: true },
-  { input: "Test123", valid: true },
-  { input: "a1b2c3", valid: true },
-  { input: "0", valid: true },
-  { input: "Z", valid: true },
-  { input: "" , valid: false },
-  { input: "abc-123", valid: false },
-  { input: "abc_123", valid: false },
-  { input: "abc 123", valid: false },
-  { input: "abc.123", valid: false },
-  { input: "abc@123", valid: false },
-  { input: "hello world", valid: false },
-  { input: "test!", valid: false },
-  { input: "user@domain", valid: false },
-  { input: "ñoño", valid: false },
-  { input: "café", valid: false },
-  { input: "你好", valid: false },
-  { input: "привет", valid: false },
-];
-
-const testCasesBasic = [
-  { input: "abc123", valid: true },
-  { input: "ABC", valid: true },
-  { input: "123", valid: true },
-  { input: "Test123", valid: true },
-  { input: "a1b2c3", valid: true },
-  { input: "0", valid: true },
-  { input: "Z", valid: true },
-  { input: "abc_123", valid: true },
-  { input: "user_name_123", valid: true },
-  { input: "TEST_CONSTANT", valid: true },
-  { input: "" , valid: false },
-  { input: "abc-123", valid: false },
-  { input: "abc 123", valid: false },
-  { input: "abc.123", valid: false },
-  { input: "abc@123", valid: false },
-  { input: "hello world", valid: false },
-  { input: "test!", valid: false },
-  { input: "user@domain", valid: false },
-  { input: "ñoño", valid: false },
-  { input: "café", valid: false },
-  { input: "你好", valid: false },
-  { input: "привет", valid: false },
-];
-
-interface TestCase {
-  input: string;
-  valid: boolean;
-}
+  testCases,
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet
+} from "../../../../data/alphanumeric";
 
 const Alphanumeric = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.input}>
-      <Table.Td>{element.input === "" ? "(empty string)" : element.input}</Table.Td>
+    <Table.Tr key={element.pattern}>
+      <Table.Td>{element.pattern === "" ? "(empty string)" : element.pattern}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>

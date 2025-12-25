@@ -6,124 +6,25 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
-
-const urlRegex = `^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$`;
-
-const jsSnippet = `
-const urlRegex = /${urlRegex}/;
-const isValidURL = (url) => urlRegex.test(url);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_url(url):
-  urlRegex = r"${urlRegex}"
-  return re.match(urlRegex, url) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_url(url: &str) -> bool {
-  let urlRegex = Regex::new("${urlRegex}")
-    .expect("Could not parse URL validation regex");
-  urlRegex.is_match(url)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidURL(url string) bool {
-  urlRegex := "${urlRegex}"
-  re := regexp.MustCompile(urlRegex)
-  return re.MatchString(url)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidURL(_ url: String) -> Bool {
-  let urlRegex = "${urlRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", urlRegex).evaluate(with: url)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidURL(string url) {
-    string urlRegex = "${urlRegex}";
-    return Regex.IsMatch(url, urlRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidURL(String url) {
-    String urlRegex = "${urlRegex}";
-    Pattern pattern = Pattern.compile(urlRegex);
-    Matcher matcher = pattern.matcher(url);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidURL($url) {
-  $urlRegex = "${urlRegex}";
-  return (bool) preg_match("/" . $urlRegex . "/", $url);
-}
-?>
-`;
-
-const testCases = [
-  { url: "https://www.example.com", valid: true },
-  { url: "http://example.com", valid: true },
-  { url: "https://example.com/path/to/resource", valid: true },
-  { url: "https://example.com/path?query=value", valid: true },
-  { url: "https://example.com:8080/path", valid: true },
-  { url: "https://subdomain.example.com", valid: true },
-  { url: "http://example.com/path#fragment", valid: true },
-  { url: "https://example.com/path?key1=value1&key2=value2", valid: true },
-  { url: "https://example.co.uk", valid: true },
-  { url: "https://192.168.1.1", valid: false },
-  { url: "ftp://example.com", valid: false },
-  { url: "https://", valid: false },
-  { url: "example.com", valid: false },
-  { url: "www.example.com", valid: false },
-  { url: "https://example", valid: false },
-  { url: "https://example.", valid: false },
-  { url: "https://ex ample.com", valid: false },
-  { url: "", valid: false },
-  { url: "http:/example.com", valid: false },
-  { url: "https//example.com", valid: false },
-];
-
-interface TestCase {
-  url: string;
-  valid: boolean;
-}
+import type TestCase from '../../../../types/test-case';
+import {
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  testCases,
+} from '../../../../data/url';
 
 const URLAndPath = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.url}-${index}`}>
-      <Table.Td>{element.url || '(empty string)'}</Table.Td>
+    <Table.Tr key={`${element.pattern}-${index}`}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>

@@ -6,124 +6,25 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
-
-const domainRegex = `^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$`;
-
-const jsSnippet = `
-const domainRegex = /${domainRegex}/;
-const isValidDomain = (domain) => domainRegex.test(domain);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_domain(domain):
-  domainRegex = r"${domainRegex}"
-  return re.match(domainRegex, domain) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_domain(domain: &str) -> bool {
-  let domainRegex = Regex::new("${domainRegex}")
-    .expect("Could not parse domain validation regex");
-  domainRegex.is_match(domain)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidDomain(domain string) bool {
-  domainRegex := "${domainRegex}"
-  re := regexp.MustCompile(domainRegex)
-  return re.MatchString(domain)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidDomain(_ domain: String) -> Bool {
-  let domainRegex = "${domainRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", domainRegex).evaluate(with: domain)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidDomain(string domain) {
-    string domainRegex = "${domainRegex}";
-    return Regex.IsMatch(domain, domainRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidDomain(String domain) {
-    String domainRegex = "${domainRegex}";
-    Pattern pattern = Pattern.compile(domainRegex);
-    Matcher matcher = pattern.matcher(domain);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidDomain($domain) {
-  $domainRegex = "${domainRegex}";
-  return (bool) preg_match("/" . $domainRegex . "/", $domain);
-}
-?>
-`;
-
-const testCases = [
-  { domain: "example.com", valid: true },
-  { domain: "subdomain.example.com", valid: true },
-  { domain: "sub.domain.example.com", valid: true },
-  { domain: "example.co.uk", valid: true },
-  { domain: "my-site.com", valid: true },
-  { domain: "example123.org", valid: true },
-  { domain: "test.example.museum", valid: true },
-  { domain: "a.b.c.d.example.com", valid: true },
-  { domain: "xn--80akhbyknj4f.com", valid: true },
-  { domain: "example", valid: false },
-  { domain: ".example.com", valid: false },
-  { domain: "example.com.", valid: false },
-  { domain: "-example.com", valid: false },
-  { domain: "example-.com", valid: false },
-  { domain: "example..com", valid: false },
-  { domain: "example .com", valid: false },
-  { domain: "example.c", valid: false },
-  { domain: "", valid: false },
-  { domain: "example.123", valid: false },
-  { domain: "exam ple.com", valid: false },
-];
-
-interface TestCase {
-  domain: string;
-  valid: boolean;
-}
+import type TestCase from '../../../../types/test-case';
+import {
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  testCases,
+} from '../../../../data/domain';
 
 const Domain = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.domain}-${index}`}>
-      <Table.Td>{element.domain || '(empty string)'}</Table.Td>
+    <Table.Tr key={`${element.pattern}-${index}`}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>

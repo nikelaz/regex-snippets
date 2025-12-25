@@ -1,131 +1,27 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
+import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
 import {
-  IconCheck,
-  IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-const cardRegex = `^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\\d{3})\\d{11})$`;
-
-const jsSnippet = `
-const cardRegex = /${cardRegex}/;
-const isValidCardNumber = (cardNumber) => cardRegex.test(cardNumber);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_card_number(card_number):
-  cardRegex = r"${cardRegex}"
-  return re.match(cardRegex, card_number) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_card_number(card_number: &str) -> bool {
-  let cardRegex = Regex::new("${cardRegex}")
-    .expect("Could not parse card validation regex");
-  cardRegex.is_match(card_number)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidCardNumber(cardNumber string) bool {
-  cardRegex := "${cardRegex}"
-  re := regexp.MustCompile(cardRegex)
-  return re.MatchString(cardNumber)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidCardNumber(_ cardNumber: String) -> Bool {
-  let cardRegex = "${cardRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", cardRegex).evaluate(with: cardNumber)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidCardNumber(string cardNumber) {
-    string cardRegex = "${cardRegex}";
-    return Regex.IsMatch(cardNumber, cardRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidCardNumber(String cardNumber) {
-    String cardRegex = "${cardRegex}";
-    Pattern pattern = Pattern.compile(cardRegex);
-    Matcher matcher = pattern.matcher(cardNumber);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidCardNumber($cardNumber) {
-  $cardRegex = "${cardRegex}";
-  return (bool) preg_match("/" . $cardRegex . "/", $cardNumber);
-}
-?>
-`;
-
-const testCases = [
-  { cardNumber: "4532015112830366", valid: true, type: "Visa (16 digits)" },
-  { cardNumber: "4532015112830", valid: true, type: "Visa (13 digits)" },
-  { cardNumber: "5425233430109903", valid: true, type: "Mastercard" },
-  { cardNumber: "374245455400126", valid: true, type: "American Express" },
-  { cardNumber: "371449635398431", valid: true, type: "American Express" },
-  { cardNumber: "6011111111111117", valid: true, type: "Discover" },
-  { cardNumber: "6011000990139424", valid: true, type: "Discover" },
-  { cardNumber: "3056930902595100", valid: true, type: "Diners Club" },
-  { cardNumber: "36227206271667", valid: true, type: "Diners Club" },
-  { cardNumber: "3530111333300000", valid: true, type: "JCB" },
-  { cardNumber: "3566002020360505", valid: true, type: "JCB" },
-  { cardNumber: "123", valid: false, type: "Too short" },
-  { cardNumber: "4532-0151-1283-0366", valid: false, type: "Contains dashes" },
-  { cardNumber: "4532 0151 1283 0366", valid: false, type: "Contains spaces" },
-  { cardNumber: "1234567890123456", valid: false, type: "Invalid prefix" },
-  { cardNumber: "453201511283036", valid: false, type: "Invalid length for Visa" },
-  { cardNumber: "542523343010990", valid: false, type: "Invalid length for Mastercard" },
-  { cardNumber: "37424545540012", valid: false, type: "Invalid length for Amex" },
-  { cardNumber: "", valid: false, type: "Empty string" },
-  { cardNumber: "abcd1234efgh5678", valid: false, type: "Contains letters" },
-];
-
-interface TestCase {
-  cardNumber: string;
-  valid: boolean;
-  type: string;
-}
+  testCases,
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet
+} from "../../../../data/credit-debit-card-number";
 
 const CreditDebitCard = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.cardNumber}-${index}`}>
-      <Table.Td>{element.cardNumber || '(empty string)'}</Table.Td>
-      <Table.Td>{element.type}</Table.Td>
+    <Table.Tr key={`${element.pattern}-${index}`}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>
