@@ -2,7 +2,6 @@
 
 import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
 import {
-  IconHtml,
   IconCheck,
   IconX,
 } from '@tabler/icons-react';
@@ -19,7 +18,6 @@ import {
   javaSnippet,
   phpSnippet,
   testCases,
-  regexBasic,
   jsSnippetBasic,
   pythonSnippetBasic,
   rustSnippetBasic,
@@ -32,11 +30,6 @@ import {
 } from '../../../../data/email';
 
 export { emailRegex };
-
-interface TestCaseEmail {
-  email: string;
-  valid: boolean;
-}
 
 const Email = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
@@ -76,13 +69,13 @@ const Email = () => {
             <Code>{`^`}</Code> - Start of the string.
           </List.Item>
           <List.Item>
-            <Code>{`(?!\.)`}</Code> - Prevents leading dot in the local part.
+            <Code>{`(?!\\.)`}</Code> - Prevents leading dot in the local part.
           </List.Item>
           <List.Item>
-            <Code>{`(?!.*\.\.)`}</Code> - Prevents consecutive dots (..).
+            <Code>{`(?!\\.\\.\\.)`}</Code> - Prevents consecutive dots (..).
           </List.Item>
           <List.Item>
-            <Code>{`(?!.*\.@)`}</Code> - Prevents trailing dot before the @ symbol.
+            <Code>{`(?!\\.@)`}</Code> - Prevents trailing dot before the @ symbol.
           </List.Item>
           <List.Item>
             <Code>{`[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+`}</Code> - The local part before @. Allows valid characters and special symbols.
@@ -100,10 +93,10 @@ const Email = () => {
             <Code>{`(?<!-)`}</Code> - Prevents trailing hyphen in domain parts.
           </List.Item>
           <List.Item>
-            <Code>{`(?:\.[a-zA-Z0-9-]+(?<!-))*`}</Code> - Subdomains. Allows multiple levels like mail.example.com, preventing trailing hyphens.
+            <Code>{`(?:\\.[a-zA-Z0-9-]+(?<!-))*`}</Code> - Subdomains. Allows multiple levels like mail.example.com, preventing trailing hyphens.
           </List.Item>
           <List.Item>
-            <Code>{`\.[a-zA-Z]{2,}`}</Code> - Top-level domain. Requires at least two letters (e.g., .com, .org).
+            <Code>{`\\.[a-zA-Z]{2,}`}</Code> - Top-level domain. Requires at least two letters (e.g., .com, .org).
           </List.Item>
           <List.Item>
             <Code>{`$`}</Code> - End of the string.
@@ -167,10 +160,8 @@ const Email = () => {
       <Stack gap="lg">
         <Title order={2}>Basic Validation</Title>
         <Text>For a quick and simple check, you can use a basic regular expression that ensures the presence of an @ symbol and a domain. This is useful for cases where you just need a minimal validation without enforcing strict rules.</Text>
-        <CodeHighlight
-          code={`^\S+@\S+\.\S+$`}
-          language="txt"
-        />
+        {/* eslint-disable-next-line  no-useless-escape */}
+        <CodeHighlight code={`^\S+@\S+\.\S+$`} language="txt" />
       </Stack>
 
       <Stack gap="lg">
@@ -180,19 +171,19 @@ const Email = () => {
             <Code>{`^`}</Code> - Start of the string.
           </List.Item>
           <List.Item>
-            <Code>{`\S+`}</Code> - At least one non-whitespace character before `@`.
+            <Code>{`\\S+`}</Code> - At least one non-whitespace character before `@`.
           </List.Item>
           <List.Item>
             <Code>{`@`}</Code> - The required separator.
           </List.Item>
           <List.Item>
-            <Code>{`\S+`}</Code> - At least one non-whitespace character for the domain.
+            <Code>{`\\S+`}</Code> - At least one non-whitespace character for the domain.
           </List.Item>
           <List.Item>
-            <Code>{`\.`}</Code> - A dot before the top-level domain.
+            <Code>{`\\.`}</Code> - A dot before the top-level domain.
           </List.Item>
           <List.Item>
-            <Code>{`\S+`}</Code> - At least one non-whitespace character for the TLD.
+            <Code>{`\\S+`}</Code> - At least one non-whitespace character for the TLD.
           </List.Item>
           <List.Item>
             <Code>{`$`}</Code> - End of the string.

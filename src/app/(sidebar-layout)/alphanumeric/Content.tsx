@@ -1,7 +1,6 @@
 "use client";
 
-import { Title, Text, Code, List, Tabs, Stack, ThemeIcon } from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import { Title, Text, Code, List, Tabs, Stack } from "@mantine/core";
 import { CodeHighlight } from "@mantine/code-highlight";
 import TestCasesTable from "../../(components)/test-cases-table";
 import {
