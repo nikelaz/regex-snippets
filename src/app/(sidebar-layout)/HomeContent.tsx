@@ -1,6 +1,6 @@
 'use client';
 
-import { Title, Text, List, Stack } from '@mantine/core';
+import { Title, Text, List, Stack, Anchor } from '@mantine/core';
 
 const HomeContent = () => {
   return (
@@ -25,6 +25,16 @@ const HomeContent = () => {
           <List.Item><strong>Improve Accuracy</strong> - Avoid common pitfalls and errors in regex validation.</List.Item>
           <List.Item><strong>Cross-Language Support</strong> - Apply regex solutions in different programming environments.</List.Item>
         </List>
+      </section>
+      <section>
+        <Title order={2} mb="lg">Automated Testing</Title>
+        <Text>
+          All regex patterns in this repository are rigorously tested to ensure accuracy and reliability. Each pattern includes a comprehensive test suite that validates against the exact test cases shown in the table for that pattern. The tests are currently implemented in TypeScript using Bun&apos;s test framework. You can view the complete test suite in our{' '}
+          <Anchor href="https://github.com/nikelaz/regex-snippets/tree/main/test" target="_blank" rel="noopener noreferrer">
+            GitHub repository
+          </Anchor>
+          , where every pattern is verified against both valid and invalid inputs to ensure consistent behavior.
+        </Text>
       </section>
     </Stack>
   );

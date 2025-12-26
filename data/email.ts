@@ -1,6 +1,6 @@
 import type TestCase from "../types/test-case";
 
-export const regex = `^(?!.*\\.\\.)(?!.*\\.$)[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z]{2,}$`;
+export const regex = `^(?!\\.)(?!.*\\.\\.)(?!.*\\.@)[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@(?!-)[a-zA-Z0-9-]+(?<!-)(?:\\.[a-zA-Z0-9-]+(?<!-))*\\.[a-zA-Z]{2,}$`;
 
 export const jsSnippet = `
 const emailRegex = /${regex}/;
