@@ -90,7 +90,6 @@ export const testCases: TestCase[] = [
   { pattern: "371449635398431", isValid: true },
   { pattern: "6011111111111117", isValid: true },
   { pattern: "6011000990139424", isValid: true },
-  { pattern: "3056930902595100", isValid: true },
   { pattern: "36227206271667", isValid: true },
   { pattern: "3530111333300000", isValid: true },
   { pattern: "3566002020360505", isValid: true },

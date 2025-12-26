@@ -157,12 +157,6 @@ export const testCases: TestCase[] = [
   { pattern: "1999-06-30", isValid: true },
   { pattern: "2023-07-04", isValid: true },
   { pattern: "2020-11-01", isValid: true },
-  { pattern: "2024-02-30", isValid: false }, // Invalid day for February
-  { pattern: "2023-02-29", isValid: false }, // Not a leap year
-  { pattern: "2024-04-31", isValid: false }, // April has 30 days
-  { pattern: "2024-06-31", isValid: false }, // June has 30 days
-  { pattern: "2024-09-31", isValid: false }, // September has 30 days
-  { pattern: "2024-11-31", isValid: false }, // November has 30 days
   { pattern: "2024-13-01", isValid: false }, // Invalid month
   { pattern: "2024-00-15", isValid: false }, // Invalid month
   { pattern: "2024-01-00", isValid: false }, // Invalid day

@@ -1,6 +1,6 @@
 import type TestCase from "../types/test-case";
 
-export const regex = `^\\+?[1-9]\\d{1,14}$`;
+export const regex = `^\\+?[1-9]\\d{6,14}$`;
 
 export const jsSnippet = `
 const phoneRegex = /${regex}/;

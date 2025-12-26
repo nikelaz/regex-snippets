@@ -86,7 +86,7 @@ export const testCases: TestCase[] = [
   { pattern: "123-45-6789", isValid: true },
   { pattern: "234-56-7890", isValid: true },
   { pattern: "456-78-9012", isValid: true },
-  { pattern: "987-65-4321", isValid: true },
+  { pattern: "987-65-4321", isValid: false }, // 9XX range is invalid per SSA rules
   { pattern: "800-12-3456", isValid: true },
   { pattern: "000-12-3456", isValid: false },
   { pattern: "666-12-3456", isValid: false },

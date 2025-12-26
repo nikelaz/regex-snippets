@@ -1,6 +1,6 @@
 import type TestCase from "../types/test-case";
 
-export const regex = `^(\\/[^\\/ ]*)+\\/?$|^\\.(\\/[^\\/ ]*)+\\/?$|^\\.\\.\\/([^\\/ ]*\\/)*[^\\/ ]*$`;
+export const regex = `^\\/(?:[^\\/ ]+\\/)*[^\\/ ]*$|^\\.(?:\\/[^\\/ ]+)+\\/?$|^\\.\\.\\/(?:[^\\/ ]+\\/)*[^\\/ ]*$`;
 
 export const jsSnippet = `
 const unixPathRegex = /${regex}/;

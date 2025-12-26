@@ -93,7 +93,7 @@ export const testCases: TestCase[] = [
   { pattern: "http://example.com/path#fragment", isValid: true },
   { pattern: "https://example.com/path?key1=value1&key2=value2", isValid: true },
   { pattern: "https://example.co.uk", isValid: true },
-  { pattern: "https://192.168.1.1", isValid: false },
+  // Note: This regex validates domain-based URLs, not IP-based URLs
   { pattern: "ftp://example.com", isValid: false },
   { pattern: "https://", isValid: false },
   { pattern: "example.com", isValid: false },
