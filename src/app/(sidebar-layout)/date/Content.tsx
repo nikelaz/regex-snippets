@@ -12,7 +12,7 @@ import {
   ThemeIcon } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { CodeHighlight } from "@mantine/code-highlight";
-import type TestCase from "../../../../types/test-case";
+import TestCasesTable from "../../(components)/test-cases-table";
 import {
   testCases,
   jsSnippet,
@@ -37,23 +37,6 @@ import {
 } from "../../../../data/date-basic";
 
 const Date = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.pattern || 'empty'}>
-      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
-      <Table.Td>
-        {element.isValid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
-
   return (
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
@@ -146,15 +129,7 @@ const Date = () => {
         <Text size="sm" c="dimmed" mb="sm">
           These test cases include edge cases such as leap years, invalid day-month combinations, and boundary conditions. The validation includes both regex pattern matching and semantic date correctness.
         </Text>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Date String</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCases)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCases} columnLabel="Date String" />
       </Stack>
 
       <Stack gap="lg">
@@ -239,15 +214,7 @@ const Date = () => {
 
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Date String</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesBasic)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesBasic} columnLabel="Date String" />
       </Stack>      
      </Stack>
   );

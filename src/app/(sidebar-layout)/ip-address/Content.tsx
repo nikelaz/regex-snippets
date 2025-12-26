@@ -5,15 +5,12 @@ import {
   Text,
   Code,
   List,
-  Table,
   Tabs,
   Anchor,
-  Stack,
-  ThemeIcon
+  Stack
 } from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons-react";
 import { CodeHighlight } from "@mantine/code-highlight";
-import type TestCase from "../../../../types/test-case";
+import TestCasesTable from "../../(components)/test-cases-table";
 import {
   jsSnippetIPv4,
   pySnippetIPv4,
@@ -36,22 +33,6 @@ import {
 } from "../../../../data/ip-address";
 
 const IPAddress = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.pattern}-${index}`}>
-      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
-      <Table.Td>
-        {element.isValid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
 
   return (
     <Stack component="article" gap="xl">
@@ -144,15 +125,7 @@ const IPAddress = () => {
       
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>IPv4 Address</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesIPv4)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesIPv4} columnLabel="IPv4 Address" />
       </Stack>
 
       <Stack gap="lg">
@@ -218,15 +191,7 @@ const IPAddress = () => {
       
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>IPv6 Address</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesIPv6)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesIPv6} columnLabel="IPv6 Address" />
       </Stack>
 
       <Stack gap="lg">

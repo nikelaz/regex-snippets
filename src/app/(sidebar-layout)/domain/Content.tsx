@@ -6,6 +6,7 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
+import TestCasesTable from "../../(components)/test-cases-table";
 import type TestCase from '../../../../types/test-case';
 import {
   jsSnippet,
@@ -20,23 +21,6 @@ import {
 } from '../../../../data/domain';
 
 const Domain = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.pattern}-${index}`}>
-      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
-      <Table.Td>
-        {element.isValid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
-
   return (
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
@@ -151,15 +135,7 @@ const Domain = () => {
       
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Domain Name</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCases)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCases} columnLabel="Domain Name" />
       </Stack>
     </Stack>
   );

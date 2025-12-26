@@ -14,7 +14,7 @@ import {
 } from "@mantine/core";
 import { IconCheck, IconX, IconInfoCircle } from "@tabler/icons-react";
 import { CodeHighlight } from "@mantine/code-highlight";
-import type TestCase from "../../../../types/test-case";
+import TestCasesTable from "../../(components)/test-cases-table";
 import {
   jsSnippetRange,
   pySnippetRange,
@@ -46,24 +46,6 @@ import {
 } from "../../../../data/number-of-lines";
 
 const NumberOfLines = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={index}>
-      <Table.Td style={{ fontFamily: 'monospace', fontSize: '0.85em' }}>
-        {element.pattern}</Table.Td>
-      <Table.Td>
-        {element.isValid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
-
   return (
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
@@ -156,15 +138,7 @@ const NumberOfLines = () => {
       
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Test Case</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesRange)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesRange} columnLabel="Test Case" />
       </Stack>
 
       <Stack gap="lg">
@@ -240,15 +214,7 @@ const NumberOfLines = () => {
 
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Test Case</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesMin)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesMin} columnLabel="Test Case" />
       </Stack>
 
       <Stack gap="lg">
@@ -324,15 +290,7 @@ const NumberOfLines = () => {
 
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Test Case</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesMax)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesMax} columnLabel="Test Case" />
       </Stack>
 
       <Stack gap="lg">

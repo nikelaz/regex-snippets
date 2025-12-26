@@ -6,138 +6,22 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
-
-const windowsPathRegex = `^[a-zA-Z]:\\\\(?:[^\\\\/:*?"<>|\\r\\n]+\\\\)*[^\\\\/:*?"<>|\\r\\n]*$`;
-
-const jsSnippet = `
-const windowsPathRegex = /${windowsPathRegex}/;
-const isValidWindowsPath = (path) => windowsPathRegex.test(path);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_windows_path(path):
-  windowsPathRegex = r"${windowsPathRegex}"
-  return re.match(windowsPathRegex, path) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_windows_path(path: &str) -> bool {
-  let windowsPathRegex = Regex::new(r"${windowsPathRegex}")
-    .expect("Could not parse Windows path validation regex");
-  windowsPathRegex.is_match(path)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidWindowsPath(path string) bool {
-  windowsPathRegex := \`${windowsPathRegex}\`
-  re := regexp.MustCompile(windowsPathRegex)
-  return re.MatchString(path)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidWindowsPath(_ path: String) -> Bool {
-  let windowsPathRegex = "${windowsPathRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", windowsPathRegex).evaluate(with: path)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidWindowsPath(string path) {
-    string windowsPathRegex = @"${windowsPathRegex}";
-    return Regex.IsMatch(path, windowsPathRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidWindowsPath(String path) {
-    String windowsPathRegex = "${windowsPathRegex}";
-    Pattern pattern = Pattern.compile(windowsPathRegex);
-    Matcher matcher = pattern.matcher(path);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidWindowsPath($path) {
-  $windowsPathRegex = "${windowsPathRegex}";
-  return (bool) preg_match("/" . $windowsPathRegex . "/", $path);
-}
-?>
-`;
-
-const testCases = [
-  { path: "C:\\\\", valid: true, type: "Root directory" },
-  { path: "C:\\\\Windows\\\\System32", valid: true, type: "Absolute path" },
-  { path: "D:\\\\Users\\\\Documents\\\\file.txt", valid: true, type: "File path" },
-  { path: "E:\\\\Program Files\\\\Application", valid: true, type: "Path with spaces" },
-  { path: "F:\\\\folder\\\\subfolder\\\\", valid: true, type: "Trailing backslash" },
-  { path: "Z:\\\\data", valid: true, type: "Z drive" },
-  { path: "C:\\\\path-with-dashes\\\\file_name.ext", valid: true, type: "Dashes and underscores" },
-  { path: "C:\\\\Windows", valid: true, type: "Simple path" },
-  { path: "C:\\\\Users\\\\admin\\\\Desktop\\\\file.docx", valid: true, type: "Document path" },
-  { path: "/unix/style/path", valid: false, type: "Unix path" },
-  { path: "C:/forward/slash", valid: false, type: "Forward slashes" },
-  { path: "C:\\\\invalid*name", valid: false, type: "Contains asterisk" },
-  { path: "C:\\\\invalid?name", valid: false, type: "Contains question mark" },
-  { path: "C:\\\\invalid<>name", valid: false, type: "Contains angle brackets" },
-  { path: "C:\\\\invalid|name", valid: false, type: "Contains pipe" },
-  { path: "C:\\\\invalid:name", valid: false, type: "Contains colon" },
-  { path: "invalid\\\\path", valid: false, type: "Missing drive letter" },
-  { path: "", valid: false, type: "Empty string" },
-  { path: "C:", valid: false, type: "Drive letter only" },
-  { path: "1:\\\\path", valid: false, type: "Invalid drive letter" },
-];
-
-interface TestCase {
-  path: string;
-  valid: boolean;
-  type: string;
-}
+import TestCasesTable from "../../(components)/test-cases-table";
+import type TestCase from '../../../../types/test-case';
+import {
+  regex,
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  testCases,
+} from '../../../../data/windows-path';
 
 const WindowsPath = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.path}-${index}`}>
-      <Table.Td>{element.path || '(empty string)'}</Table.Td>
-      <Table.Td>{element.type}</Table.Td>
-      <Table.Td>
-        {element.valid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
-
   return (
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
@@ -261,16 +145,7 @@ const WindowsPath = () => {
       
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Path</Table.Th>
-              <Table.Th>Type</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCases)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCases} columnLabel="Path" />
       </Stack>
     </Stack>
   );

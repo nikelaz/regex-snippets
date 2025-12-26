@@ -5,15 +5,12 @@ import {
   Text,
   Code,
   List,
-  Table,
   Tabs,
   Anchor,
-  Stack,
-  ThemeIcon
+  Stack
 } from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons-react";
 import { CodeHighlight } from "@mantine/code-highlight";
-import type TestCase from "../../../../types/test-case";
+import TestCasesTable from "../../(components)/test-cases-table";
 import {
   jsSnippetISBN10,
   pySnippetISBN10,
@@ -36,22 +33,6 @@ import {
 } from "../../../../data/isbn";
 
 const ISBN = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.pattern}>
-      <Table.Td>{element.pattern}</Table.Td>
-      <Table.Td>
-        {element.isValid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
 
   return (
     <Stack component="article" gap="xl">
@@ -133,15 +114,7 @@ const ISBN = () => {
       
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>ISBN-10</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesISBN10)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesISBN10} columnLabel="ISBN-10" />
       </Stack>
 
       <Stack gap="lg">
@@ -217,15 +190,7 @@ const ISBN = () => {
 
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>ISBN-13</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesISBN13)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesISBN13} columnLabel="ISBN-13" />
       </Stack>
 
       <Stack gap="lg">

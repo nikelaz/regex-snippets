@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { CodeHighlight } from "@mantine/code-highlight";
-import type TestCase from "../../../../types/test-case";
+import TestCasesTable from "../../(components)/test-cases-table";
 import {
   jsSnippet,
   pySnippet,
@@ -36,23 +36,6 @@ import {
 } from "../../../../data/phone";
 
 const Phone = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.pattern}>
-      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
-      <Table.Td>
-        {element.isValid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
-
   return (
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
@@ -129,15 +112,7 @@ const Phone = () => {
       
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Phone Number</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCases)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCases} columnLabel="Phone Number" />
       </Stack>
 
       <Stack gap="lg">
@@ -225,15 +200,7 @@ const Phone = () => {
 
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Phone Number</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCasesNational)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCasesNational} columnLabel="Phone Number" />
       </Stack>
     </Stack>
   );

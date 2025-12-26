@@ -6,134 +6,22 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { CodeHighlight } from '@mantine/code-highlight';
-
-const unixPathRegex = `^(\\/[^\\/ ]*)+\\/?$|^\\.(\\/[^\\/ ]*)+\\/?$|^\\.\\.\\/([^\\/ ]*\\/)*[^\\/ ]*$`;
-
-const jsSnippet = `
-const unixPathRegex = /${unixPathRegex}/;
-const isValidUnixPath = (path) => unixPathRegex.test(path);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_unix_path(path):
-  unixPathRegex = r"${unixPathRegex}"
-  return re.match(unixPathRegex, path) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_unix_path(path: &str) -> bool {
-  let unixPathRegex = Regex::new("${unixPathRegex}")
-    .expect("Could not parse Unix path validation regex");
-  unixPathRegex.is_match(path)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidUnixPath(path string) bool {
-  unixPathRegex := \`${unixPathRegex}\`
-  re := regexp.MustCompile(unixPathRegex)
-  return re.MatchString(path)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidUnixPath(_ path: String) -> Bool {
-  let unixPathRegex = "${unixPathRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", unixPathRegex).evaluate(with: path)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidUnixPath(string path) {
-    string unixPathRegex = "${unixPathRegex}";
-    return Regex.IsMatch(path, unixPathRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidUnixPath(String path) {
-    String unixPathRegex = "${unixPathRegex}";
-    Pattern pattern = Pattern.compile(unixPathRegex);
-    Matcher matcher = pattern.matcher(path);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidUnixPath($path) {
-  $unixPathRegex = "${unixPathRegex}";
-  return (bool) preg_match("/" . $unixPathRegex . "/", $path);
-}
-?>
-`;
-
-const testCases = [
-  { path: "/", valid: true, type: "Root directory" },
-  { path: "/home/user", valid: true, type: "Absolute path" },
-  { path: "/usr/local/bin", valid: true, type: "Absolute path" },
-  { path: "/var/log/system.log", valid: true, type: "Absolute file path" },
-  { path: "./relative/path", valid: true, type: "Relative path" },
-  { path: "./file.txt", valid: true, type: "Relative file" },
-  { path: "../parent/directory", valid: true, type: "Parent directory" },
-  { path: "/path/to/directory/", valid: true, type: "Trailing slash" },
-  { path: "/path-with-dashes/file_name.ext", valid: true, type: "Dashes and underscores" },
-  { path: "/path/with.dots/file.tar.gz", valid: true, type: "Multiple dots" },
-  { path: "relative/path", valid: false, type: "Invalid relative (no ./)" },
-  { path: "C:/Windows/System32", valid: false, type: "Windows path" },
-  { path: "/path with spaces/file", valid: false, type: "Contains spaces" },
-  { path: "", valid: false, type: "Empty string" },
-  { path: "//double/slash", valid: false, type: "Double slash" },
-  { path: "/path//file", valid: false, type: "Double slash in middle" },
-];
-
-interface TestCase {
-  path: string;
-  valid: boolean;
-  type: string;
-}
+import TestCasesTable from "../../(components)/test-cases-table";
+import type TestCase from '../../../../types/test-case';
+import {
+  regex,
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  testCases,
+} from '../../../../data/unix-path';
 
 const UnixPath = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.path}-${index}`}>
-      <Table.Td>{element.path || '(empty string)'}</Table.Td>
-      <Table.Td>{element.type}</Table.Td>
-      <Table.Td>
-        {element.valid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
-
   return (
     <Stack component="article" gap="xl">
       <Stack component="header" gap="lg">
@@ -249,16 +137,7 @@ const UnixPath = () => {
       
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Path</Table.Th>
-              <Table.Th>Type</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCases)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCases} columnLabel="Path" />
       </Stack>
     </Stack>
   );

@@ -1,12 +1,8 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Stack, ThemeIcon } from "@mantine/core";
-import {
-  IconCheck,
-  IconX,
-} from "@tabler/icons-react";
+import { Title, Text, Code, List, Tabs, Stack } from "@mantine/core";
 import { CodeHighlight } from "@mantine/code-highlight";
-import type TestCase from "../../../../types/test-case";
+import TestCasesTable from "../../(components)/test-cases-table";
 import {
   jsSnippet,
   pySnippet,
@@ -20,22 +16,6 @@ import {
 } from "../../../../data/affirmation";
 
 const Affirmation = () => {
-  const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.pattern}-${index}`}>
-      <Table.Td><Code>{element.pattern === "" ? "(empty string)" : element.pattern}</Code></Table.Td>
-      <Table.Td>
-        {element.isValid ? (
-          <ThemeIcon radius="xl" color="green" size="sm">
-            <IconCheck style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        ) : (
-          <ThemeIcon radius="xl" color="red" size="sm">
-            <IconX style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        )}
-      </Table.Td>
-    </Table.Tr>
-  ));
 
   return (
     <Stack component="article" gap="xl">
@@ -152,15 +132,7 @@ const Affirmation = () => {
         <Text size="sm" c="dimmed" mb="md">
           This comprehensive test suite includes valid affirmative values in various cases, as well as negative cases to ensure proper rejection of non-affirmative inputs.
         </Text>
-        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Input Value</Table.Th>
-              <Table.Th>Valid</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCases)}</Table.Tbody>
-        </Table>
+        <TestCasesTable testCases={testCases} columnLabel="Input Value" />
       </Stack>
      </Stack>
   );
