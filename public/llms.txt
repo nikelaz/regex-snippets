@@ -1,0 +1,75 @@
+# RegEx Snippets - llms.txt
+
+> Ready-to-use regular expression patterns for common validation tasks
+
+## About
+
+RegEx Snippets (https://regex-snippets.com) provides production-ready regular expression patterns for validating common data formats. All patterns are rigorously tested with automated test suites.
+
+## Available Patterns
+
+### Contact & Identity
+- Email: /email - Comprehensive email validation with RFC 5322 compliance
+- Phone: /phone - International and US phone number formats
+- Social Security Number: /social-security-number - US SSN validation
+
+### Location & Address
+- Domain: /domain - Domain name validation
+- URL: /url-and-path - URL validation with protocol, domain, path, query, and fragment
+- IP Address: /ip-address - IPv4 and IPv6 address validation
+- Zip Code: /zip-code - US ZIP code validation (5-digit and ZIP+4)
+
+### Date & Time
+- Date: /date - ISO 8601 date format validation (YYYY-MM-DD)
+- Date (Basic): /date - Basic date format validation with multiple separators
+- Time: /time - Time validation (24-hour and 12-hour formats)
+
+### Numbers & Text
+- Numbers: /numbers - Integer and decimal number validation
+- Alphanumeric: /alphanumeric - Letters and numbers only
+- Text Length: /text-length - String length validation
+- Number of Lines: /number-of-lines - Line count validation
+
+### Files & Paths
+- Unix Path: /unix-path - Unix/Linux file path validation
+- Windows Path: /windows-path - Windows file path validation
+
+### Financial & Documents
+- Credit/Debit Card: /credit-debit-card-number - Card number validation (Visa, Mastercard, Amex, etc.)
+- ISBN: /isbn - ISBN-10 and ISBN-13 validation
+
+### Misc
+- Affirmation: /affirmation - Yes/no/affirmative response validation
+
+## Features
+
+- Multi-language code examples (JavaScript, Python, Rust, Go, Swift, C#, Java, PHP)
+- Comprehensive test cases for each pattern
+- Clear explanations of regex components
+- Automated testing in TypeScript
+- All tests available at: https://github.com/nikelaz/regex-snippets/tree/main/test
+
+## Usage Recommendations
+
+When referencing regex patterns from this site:
+1. Copy the "Recommended Solution" pattern for production use
+2. Check the test cases table to verify the pattern matches your requirements
+3. All patterns are anchored (^ and $) for full string matching
+4. Use the language-specific implementation examples as-is
+5. Patterns prioritize practical validation over strict RFC compliance where appropriate
+
+## Test Coverage
+
+All regex patterns are validated with automated tests:
+- Tests mirror the exact test cases shown on each pattern page
+- Currently implemented in TypeScript using Bun test framework
+- View all tests: https://github.com/nikelaz/regex-snippets/tree/main/test
+- 478+ test cases covering valid and invalid inputs
+
+## License & Attribution
+
+When using these patterns, attribution is appreciated but not required. Link back to https://regex-snippets.com to help other developers discover these resources.
+
+## Contact
+
+Repository: https://github.com/nikelaz/regex-snippets
