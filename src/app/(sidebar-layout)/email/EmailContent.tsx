@@ -65,7 +65,7 @@ const Email = () => {
       <Stack gap="lg">
         <Title order={2}>Recommended Solution</Title>
         <CodeHighlight
-          code={`^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$`}
+          code={`^(?!\\.)(?!.*\\.\\.)(?!.*\\.@)[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@(?!-)[a-zA-Z0-9-]+(?<!-)(?:\\.[a-zA-Z0-9-]+(?<!-))*\\.[a-zA-Z]{2,}$`}
           language="txt"
         />
       </Stack>
@@ -76,10 +76,13 @@ const Email = () => {
             <Code>{`^`}</Code> - Start of the string.
           </List.Item>
           <List.Item>
+            <Code>{`(?!\.)`}</Code> - Prevents leading dot in the local part.
+          </List.Item>
+          <List.Item>
             <Code>{`(?!.*\.\.)`}</Code> - Prevents consecutive dots (..).
           </List.Item>
           <List.Item>
-            <Code>{`(?!.*\.$)`}</Code> - Prevents trailing dots at the end.
+            <Code>{`(?!.*\.@)`}</Code> - Prevents trailing dot before the @ symbol.
           </List.Item>
           <List.Item>
             <Code>{`[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+`}</Code> - The local part before @. Allows valid characters and special symbols.
@@ -88,10 +91,16 @@ const Email = () => {
             <Code>{`@`}</Code> - The required separator.
           </List.Item>
           <List.Item>
+            <Code>{`(?!-)`}</Code> - Prevents leading hyphen in domain parts.
+          </List.Item>
+          <List.Item>
             <Code>{`[a-zA-Z0-9-]+`}</Code> - Domain name. Allows letters, numbers, and hyphens. For more details on domain validation, see the <Anchor href="/domain" underline="always">domain validation article</Anchor>.
           </List.Item>
           <List.Item>
-            <Code>{`(?:\.[a-zA-Z0-9-]+)*`}</Code> - Subdomains. Allows multiple levels like mail.example.com.
+            <Code>{`(?<!-)`}</Code> - Prevents trailing hyphen in domain parts.
+          </List.Item>
+          <List.Item>
+            <Code>{`(?:\.[a-zA-Z0-9-]+(?<!-))*`}</Code> - Subdomains. Allows multiple levels like mail.example.com, preventing trailing hyphens.
           </List.Item>
           <List.Item>
             <Code>{`\.[a-zA-Z]{2,}`}</Code> - Top-level domain. Requires at least two letters (e.g., .com, .org).
