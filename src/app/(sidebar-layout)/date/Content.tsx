@@ -5,12 +5,9 @@ import {
   Text,
   Code,
   List,
-  Table,
   Tabs,
   Anchor,
-  Stack,
-  ThemeIcon } from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons-react";
+  Stack } from "@mantine/core";
 import { CodeHighlight } from "@mantine/code-highlight";
 import TestCasesTable from "../../(components)/test-cases-table";
 import {

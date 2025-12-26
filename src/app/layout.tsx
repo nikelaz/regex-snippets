@@ -5,7 +5,6 @@ import {
   ColorSchemeScript,
   mantineHtmlProps,
 } from '@mantine/core';
-import { theme } from '../../theme';
 import type { Metadata } from 'next';
 import "./style.css";
 
@@ -50,7 +49,7 @@ const RootLayout = ({ children }: { children: any }) => {
         />
       </head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme="auto">
+        <MantineProvider defaultColorScheme="auto">
           {children}
         </MantineProvider>
         <script data-goatcounter="https://regex-snippets.goatcounter.com/count"

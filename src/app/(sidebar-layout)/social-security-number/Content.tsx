@@ -5,14 +5,12 @@ import {
   Text,
   Code,
   List,
-  Table,
   Tabs,
   Anchor,
   Stack,
-  ThemeIcon,
   Alert
 } from "@mantine/core";
-import { IconCheck, IconX, IconShieldLock } from "@tabler/icons-react";
+import { IconShieldLock } from "@tabler/icons-react";
 import { CodeHighlight } from "@mantine/code-highlight";
 import TestCasesTable from "../../(components)/test-cases-table";
 import {

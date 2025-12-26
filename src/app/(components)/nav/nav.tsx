@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import {
   IconHome,
   IconMail,
@@ -22,7 +21,7 @@ import {
   IconBrandWindows,
   IconFile,
 } from '@tabler/icons-react';
-import { Code, Group, Text, Anchor } from '@mantine/core';
+import { Text, Anchor } from '@mantine/core';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import classes from './nav.module.css';
@@ -57,7 +56,6 @@ type NavProps = Readonly<{
 }>;
 
 const Nav = (props: NavProps) => {
-  const [active, setActive] = useState('Billing');
   const path = usePathname();
 
   const getLinks = (data: any) => data.map((item: any) => (
