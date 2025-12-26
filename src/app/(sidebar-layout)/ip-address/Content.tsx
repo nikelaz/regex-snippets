@@ -1,227 +1,46 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
 import {
-  IconCheck,
-  IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-const ipv4Regex = `^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$`;
-const ipv6Regex = `^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$|^::(?:[0-9a-fA-F]{1,4}:){0,6}[0-9a-fA-F]{1,4}$|^(?:[0-9a-fA-F]{1,4}:){1,6}:$|^(?:[0-9a-fA-F]{1,4}:)(?::[0-9a-fA-F]{1,4}){1,6}$|^(?:[0-9a-fA-F]{1,4}:){2}(?::[0-9a-fA-F]{1,4}){1,5}$|^(?:[0-9a-fA-F]{1,4}:){3}(?::[0-9a-fA-F]{1,4}){1,4}$|^(?:[0-9a-fA-F]{1,4}:){4}(?::[0-9a-fA-F]{1,4}){1,3}$|^(?:[0-9a-fA-F]{1,4}:){5}(?::[0-9a-fA-F]{1,4}){1,2}$|^(?:[0-9a-fA-F]{1,4}:){6}:[0-9a-fA-F]{1,4}$`;
-
-const jsSnippetIPv4 = `
-const ipv4Regex = /${ipv4Regex}/;
-const isValidIPv4 = (ip) => ipv4Regex.test(ip);
-`;
-
-const pySnippetIPv4 = `
-import re
-
-def is_valid_ipv4(ip):
-  ipv4Regex = r"${ipv4Regex}"
-  return re.match(ipv4Regex, ip) is not None
-`;
-
-const rustSnippetIPv4 = `
-use regex::Regex;
-
-fn is_valid_ipv4(ip: &str) -> bool {
-  let ipv4Regex = Regex::new("${ipv4Regex}")
-    .expect("Could not parse IPv4 validation regex");
-  ipv4Regex.is_match(ip)
-}
-`;
-
-const goSnippetIPv4 = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidIPv4(ip string) bool {
-  ipv4Regex := "${ipv4Regex}"
-  re := regexp.MustCompile(ipv4Regex)
-  return re.MatchString(ip)
-}
-`;
-
-const swiftSnippetIPv4 = `
-import Foundation
-
-func isValidIPv4(_ ip: String) -> Bool {
-  let ipv4Regex = "${ipv4Regex}"
-  return NSPredicate(format: "SELF MATCHES %@", ipv4Regex).evaluate(with: ip)
-}
-`;
-
-const csharpSnippetIPv4 = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidIPv4(string ip) {
-    string ipv4Regex = "${ipv4Regex}";
-    return Regex.IsMatch(ip, ipv4Regex);
-  }
-}
-`;
-
-const javaSnippetIPv4 = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidIPv4(String ip) {
-    String ipv4Regex = "${ipv4Regex}";
-    Pattern pattern = Pattern.compile(ipv4Regex);
-    Matcher matcher = pattern.matcher(ip);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetIPv4 = `
-<?php
-function isValidIPv4($ip) {
-  $ipv4Regex = "${ipv4Regex}";
-  return (bool) preg_match("/" . $ipv4Regex . "/", $ip);
-}
-?>
-`;
-
-const jsSnippetIPv6 = `
-const ipv6Regex = /${ipv6Regex}/;
-const isValidIPv6 = (ip) => ipv6Regex.test(ip);
-`;
-
-const pySnippetIPv6 = `
-import re
-
-def is_valid_ipv6(ip):
-  ipv6Regex = r"${ipv6Regex}"
-  return re.match(ipv6Regex, ip) is not None
-`;
-
-const rustSnippetIPv6 = `
-use regex::Regex;
-
-fn is_valid_ipv6(ip: &str) -> bool {
-  let ipv6Regex = Regex::new("${ipv6Regex}")
-    .expect("Could not parse IPv6 validation regex");
-  ipv6Regex.is_match(ip)
-}
-`;
-
-const goSnippetIPv6 = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidIPv6(ip string) bool {
-  ipv6Regex := \`${ipv6Regex}\`
-  re := regexp.MustCompile(ipv6Regex)
-  return re.MatchString(ip)
-}
-`;
-
-const swiftSnippetIPv6 = `
-import Foundation
-
-func isValidIPv6(_ ip: String) -> Bool {
-  let ipv6Regex = "${ipv6Regex}"
-  return NSPredicate(format: "SELF MATCHES %@", ipv6Regex).evaluate(with: ip)
-}
-`;
-
-const csharpSnippetIPv6 = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidIPv6(string ip) {
-    string ipv6Regex = "${ipv6Regex}";
-    return Regex.IsMatch(ip, ipv6Regex);
-  }
-}
-`;
-
-const javaSnippetIPv6 = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidIPv6(String ip) {
-    String ipv6Regex = "${ipv6Regex}";
-    Pattern pattern = Pattern.compile(ipv6Regex);
-    Matcher matcher = pattern.matcher(ip);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetIPv6 = `
-<?php
-function isValidIPv6($ip) {
-  $ipv6Regex = "${ipv6Regex}";
-  return (bool) preg_match("/" . $ipv6Regex . "/", $ip);
-}
-?>
-`;
-
-const testCasesIPv4 = [
-  { ip: "192.168.1.1", valid: true },
-  { ip: "0.0.0.0", valid: true },
-  { ip: "255.255.255.255", valid: true },
-  { ip: "10.0.0.1", valid: true },
-  { ip: "172.16.0.1", valid: true },
-  { ip: "8.8.8.8", valid: true },
-  { ip: "127.0.0.1", valid: true },
-  { ip: "1.1.1.1", valid: true },
-  { ip: "256.1.1.1", valid: false },
-  { ip: "192.168.1.256", valid: false },
-  { ip: "192.168.1", valid: false },
-  { ip: "192.168.1.1.1", valid: false },
-  { ip: "192.168.-1.1", valid: false },
-  { ip: "192.168.1.1.1", valid: false },
-  { ip: "abc.def.ghi.jkl", valid: false },
-  { ip: "", valid: false },
-  { ip: "192.168.1.01", valid: true },
-  { ip: "999.999.999.999", valid: false },
-];
-
-const testCasesIPv6 = [
-  { ip: "2001:0db8:85a3:0000:0000:8a2e:0370:7334", valid: true },
-  { ip: "2001:db8:85a3::8a2e:370:7334", valid: true },
-  { ip: "::1", valid: true },
-  { ip: "::", valid: true },
-  { ip: "fe80::1", valid: true },
-  { ip: "::ffff:192.0.2.1", valid: false },
-  { ip: "2001:db8::8a2e:370:7334", valid: true },
-  { ip: "2001:0db8:0001:0000:0000:0ab9:C0A8:0102", valid: true },
-  { ip: "2001:db8:85a3:0:0:8a2e:370:7334", valid: true },
-  { ip: "::ffff:c000:0280", valid: true },
-  { ip: "02001:0db8:0000:0000:0000:ff00:0042:8329", valid: false },
-  { ip: "2001:0db8:0000:0000:0000:ff00:0042:83290", valid: false },
-  { ip: "2001:db8:::8a2e:370:7334", valid: false },
-  { ip: "gggg::1111", valid: false },
-  { ip: "", valid: false },
-];
-
-interface TestCase {
-  ip: string;
-  valid: boolean;
-}
+  Title,
+  Text,
+  Code,
+  List,
+  Table,
+  Tabs,
+  Anchor,
+  Stack,
+  ThemeIcon
+} from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
+import {
+  jsSnippetIPv4,
+  pySnippetIPv4,
+  rustSnippetIPv4,
+  goSnippetIPv4,
+  swiftSnippetIPv4,
+  csharpSnippetIPv4,
+  javaSnippetIPv4,
+  phpSnippetIPv4,
+  testCasesIPv4,
+  jsSnippetIPv6,
+  pySnippetIPv6,
+  rustSnippetIPv6,
+  goSnippetIPv6,
+  swiftSnippetIPv6,
+  csharpSnippetIPv6,
+  javaSnippetIPv6,
+  phpSnippetIPv6,
+  testCasesIPv6,
+} from "../../../../data/ip-address";
 
 const IPAddress = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.ip}-${index}`}>
-      <Table.Td>{element.ip || '(empty string)'}</Table.Td>
+    <Table.Tr key={`${element.pattern}-${index}`}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>

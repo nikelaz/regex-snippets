@@ -1,6 +1,7 @@
 import type TestCase from "../types/test-case";
 
 export const regexISBN10 = `^(?:\\d{9}X|\\d{10})$`;
+
 export const regexISBN13 = `^97[89]\\d{10}$`;
 
 export const jsSnippetISBN10 = `

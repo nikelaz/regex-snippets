@@ -1,12 +1,19 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
 import {
-  IconCheck,
-  IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-import type TestCase from '../../../../types/test-case';
+  Title,
+  Text,
+  Code,
+  List,
+  Table,
+  Tabs,
+  Anchor,
+  Stack,
+  ThemeIcon
+} from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
 import {
   jsSnippet,
   pySnippet,
@@ -18,7 +25,7 @@ import {
   phpSnippet,
   testCases,
   jsSnippetNational,
-  pythonSnippetNational,
+  pySnippetNational,
   rustSnippetNational,
   goSnippetNational,
   swiftSnippetNational,
@@ -26,12 +33,7 @@ import {
   javaSnippetNational,
   phpSnippetNational,
   testCasesNational,
-} from '../../../../data/phone';
-
-interface TestCasePhone {
-  phone: string;
-  valid: boolean;
-}
+} from "../../../../data/phone";
 
 const Phone = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
@@ -198,7 +200,7 @@ const Phone = () => {
             <CodeHighlight code={jsSnippetNational.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pythonSnippetNational.trim()} language="py" />
+            <CodeHighlight code={pySnippetNational.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
             <CodeHighlight code={rustSnippetNational.trim()} language="rust" />

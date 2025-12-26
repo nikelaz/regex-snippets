@@ -1,303 +1,55 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
 import {
-  IconCheck,
-  IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-const lengthRangeRegex = `^.{8,32}$`;
-const minLengthRegex = `^.{8,}$`;
-const maxLengthRegex = `^.{0,32}$`;
-
-const jsSnippet = `
-const lengthRangeRegex = /${lengthRangeRegex}/;
-const isValidLength = (text) => lengthRangeRegex.test(text);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_length(text):
-  lengthRangeRegex = r"${lengthRangeRegex}"
-  return re.match(lengthRangeRegex, text) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_length(text: &str) -> bool {
-  let lengthRangeRegex = Regex::new("${lengthRangeRegex}")
-    .expect("Could not parse length validation regex");
-  lengthRangeRegex.is_match(text)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "regexp"
-)
-
-func isValidLength(text string) bool {
-  lengthRangeRegex := "${lengthRangeRegex}"
-  re := regexp.MustCompile(lengthRangeRegex)
-  return re.MatchString(text)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidLength(_ text: String) -> Bool {
-  let lengthRangeRegex = "${lengthRangeRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", lengthRangeRegex).evaluate(with: text)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidLength(string text) {
-    string lengthRangeRegex = "${lengthRangeRegex}";
-    return Regex.IsMatch(text, lengthRangeRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidLength(String text) {
-    String lengthRangeRegex = "${lengthRangeRegex}";
-    Pattern pattern = Pattern.compile(lengthRangeRegex);
-    Matcher matcher = pattern.matcher(text);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidLength($text) {
-  $lengthRangeRegex = "${lengthRangeRegex}";
-  return preg_match("/" . $lengthRangeRegex . "/", $text);
-}
-?>
-`;
-
-const jsSnippetMin = `
-const minLengthRegex = /${minLengthRegex}/;
-const isValidMinLength = (text) => minLengthRegex.test(text);
-`;
-
-const pySnippetMin = `
-import re
-
-def is_valid_min_length(text):
-  minLengthRegex = r"${minLengthRegex}"
-  return re.match(minLengthRegex, text) is not None
-`;
-
-const rustSnippetMin = `
-use regex::Regex;
-
-fn is_valid_min_length(text: &str) -> bool {
-  let minLengthRegex = Regex::new("${minLengthRegex}")
-    .expect("Could not parse min length validation regex");
-  minLengthRegex.is_match(text)
-}
-`;
-
-const goSnippetMin = `
-package main
-
-import (
-  "regexp"
-)
-
-func isValidMinLength(text string) bool {
-  minLengthRegex := "${minLengthRegex}"
-  re := regexp.MustCompile(minLengthRegex)
-  return re.MatchString(text)
-}
-`;
-
-const swiftSnippetMin = `
-import Foundation
-
-func isValidMinLength(_ text: String) -> Bool {
-  let minLengthRegex = "${minLengthRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", minLengthRegex).evaluate(with: text)
-}
-`;
-
-const csharpSnippetMin = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidMinLength(string text) {
-    string minLengthRegex = "${minLengthRegex}";
-    return Regex.IsMatch(text, minLengthRegex);
-  }
-}
-`;
-
-const javaSnippetMin = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidMinLength(String text) {
-    String minLengthRegex = "${minLengthRegex}";
-    Pattern pattern = Pattern.compile(minLengthRegex);
-    Matcher matcher = pattern.matcher(text);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetMin = `
-<?php
-function isValidMinLength($text) {
-  $minLengthRegex = "${minLengthRegex}";
-  return preg_match("/" . $minLengthRegex . "/", $text);
-}
-?>
-`;
-
-const jsSnippetMax = `
-const maxLengthRegex = /${maxLengthRegex}/;
-const isValidMaxLength = (text) => maxLengthRegex.test(text);
-`;
-
-const pySnippetMax = `
-import re
-
-def is_valid_max_length(text):
-  maxLengthRegex = r"${maxLengthRegex}"
-  return re.match(maxLengthRegex, text) is not None
-`;
-
-const rustSnippetMax = `
-use regex::Regex;
-
-fn is_valid_max_length(text: &str) -> bool {
-  let maxLengthRegex = Regex::new("${maxLengthRegex}")
-    .expect("Could not parse max length validation regex");
-  maxLengthRegex.is_match(text)
-}
-`;
-
-const goSnippetMax = `
-package main
-
-import (
-  "regexp"
-)
-
-func isValidMaxLength(text string) bool {
-  maxLengthRegex := "${maxLengthRegex}"
-  re := regexp.MustCompile(maxLengthRegex)
-  return re.MatchString(text)
-}
-`;
-
-const swiftSnippetMax = `
-import Foundation
-
-func isValidMaxLength(_ text: String) -> Bool {
-  let maxLengthRegex = "${maxLengthRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", maxLengthRegex).evaluate(with: text)
-}
-`;
-
-const csharpSnippetMax = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidMaxLength(string text) {
-    string maxLengthRegex = "${maxLengthRegex}";
-    return Regex.IsMatch(text, maxLengthRegex);
-  }
-}
-`;
-
-const javaSnippetMax = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidMaxLength(String text) {
-    String maxLengthRegex = "${maxLengthRegex}";
-    Pattern pattern = Pattern.compile(maxLengthRegex);
-    Matcher matcher = pattern.matcher(text);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetMax = `
-<?php
-function isValidMaxLength($text) {
-  $maxLengthRegex = "${maxLengthRegex}";
-  return preg_match("/" . $maxLengthRegex . "/", $text);
-}
-?>
-`;
-
-interface TestCase {
-  text: string;
-  valid: boolean;
-}
-
-const testCasesRange: TestCase[] = [
-  { text: "12345678", valid: true },
-  { text: "abcdefgh", valid: true },
-  { text: "Test1234", valid: true },
-  { text: "A1B2C3D4E5F6G7H8", valid: true },
-  { text: "12345678901234567890123456789012", valid: true },
-  { text: "1234567", valid: false },
-  { text: "abc", valid: false },
-  { text: "", valid: false },
-  { text: "123456789012345678901234567890123", valid: false },
-  { text: "This is a very long text that exceeds the maximum allowed length", valid: false },
-];
-
-const testCasesMin: TestCase[] = [
-  { text: "12345678", valid: true },
-  { text: "abcdefgh", valid: true },
-  { text: "Test1234", valid: true },
-  { text: "A very long text that is definitely more than 8 characters", valid: true },
-  { text: "12345678901234567890123456789012345678901234567890", valid: true },
-  { text: "1234567", valid: false },
-  { text: "abc", valid: false },
-  { text: "", valid: false },
-  { text: "short", valid: false },
-];
-
-const testCasesMax: TestCase[] = [
-  { text: "", valid: true },
-  { text: "a", valid: true },
-  { text: "12345678", valid: true },
-  { text: "Test1234", valid: true },
-  { text: "12345678901234567890123456789012", valid: true },
-  { text: "123456789012345678901234567890123", valid: false },
-  { text: "This is a very long text that exceeds the maximum allowed length", valid: false },
-  { text: "A very long text with more than thirty-two characters in total", valid: false },
-];
+  Title,
+  Text,
+  Code,
+  List,
+  Table,
+  Tabs,
+  Anchor,
+  Stack,
+  ThemeIcon
+} from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
+import {
+  jsSnippetRange,
+  pySnippetRange,
+  rustSnippetRange,
+  goSnippetRange,
+  swiftSnippetRange,
+  csharpSnippetRange,
+  javaSnippetRange,
+  phpSnippetRange,
+  jsSnippetMin,
+  pySnippetMin,
+  rustSnippetMin,
+  goSnippetMin,
+  swiftSnippetMin,
+  csharpSnippetMin,
+  javaSnippetMin,
+  phpSnippetMin,
+  jsSnippetMax,
+  pySnippetMax,
+  rustSnippetMax,
+  goSnippetMax,
+  swiftSnippetMax,
+  csharpSnippetMax,
+  javaSnippetMax,
+  phpSnippetMax,
+  testCasesRange,
+  testCasesMin,
+  testCasesMax,
+} from "../../../../data/text-length";
 
 const TextLength = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.text || 'empty'}>
-      <Table.Td>{element.text || '(empty string)'}</Table.Td>
+    <Table.Tr key={element.pattern || 'empty'}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>
@@ -356,28 +108,28 @@ const TextLength = () => {
           </Tabs.List>
 
           <Tabs.Panel value="js">
-            <CodeHighlight code={jsSnippet.trim()} language="js" />
+            <CodeHighlight code={jsSnippetRange.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pySnippet.trim()} language="py" />
+            <CodeHighlight code={pySnippetRange.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
-            <CodeHighlight code={rustSnippet.trim()} language="rust" />
+            <CodeHighlight code={rustSnippetRange.trim()} language="rust" />
           </Tabs.Panel>
           <Tabs.Panel value="go">
-            <CodeHighlight code={goSnippet.trim()} language="go" />
+            <CodeHighlight code={goSnippetRange.trim()} language="go" />
           </Tabs.Panel>
           <Tabs.Panel value="swift">
-            <CodeHighlight code={swiftSnippet.trim()} language="swift" />
+            <CodeHighlight code={swiftSnippetRange.trim()} language="swift" />
           </Tabs.Panel>
           <Tabs.Panel value="csharp">
-            <CodeHighlight code={csharpSnippet.trim()} language="csharp" />
+            <CodeHighlight code={csharpSnippetRange.trim()} language="csharp" />
           </Tabs.Panel>
           <Tabs.Panel value="java">
-            <CodeHighlight code={javaSnippet.trim()} language="java" />
+            <CodeHighlight code={javaSnippetRange.trim()} language="java" />
           </Tabs.Panel>
           <Tabs.Panel value="php">
-            <CodeHighlight code={phpSnippet.trim()} language="php" />
+            <CodeHighlight code={phpSnippetRange.trim()} language="php" />
           </Tabs.Panel>
         </Tabs>
       </Stack>

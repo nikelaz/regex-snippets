@@ -114,7 +114,7 @@ export const regex12 = `^(?:0?[1-9]|1[0-2]):[0-5]\\d(?::[0-5]\\d)?\\s?[AaPp][Mm]
 export const jsSnippet12 = `const time12Regex = /${regex12}/;
 const isValidTime = (time) => time12Regex.test(time);`;
 
-export const pythonSnippet12 = `import re
+export const pySnippet12 = `import re
 
 time12_regex = r'${regex12}'
 

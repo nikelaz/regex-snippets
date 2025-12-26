@@ -109,7 +109,7 @@ export const regexNational = `^\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$`;
 export const jsSnippetNational = `const nationalPhoneRegex = /${regexNational}/;
 const isValidPhone = (phone) => nationalPhoneRegex.test(phone);`;
 
-export const pythonSnippetNational = `import re
+export const pySnippetNational = `import re
 
 national_phone_regex = r'${regexNational}'
 

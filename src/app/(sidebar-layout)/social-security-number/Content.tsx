@@ -1,206 +1,47 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon, Alert } from '@mantine/core';
 import {
-  IconCheck,
-  IconX,
-  IconShieldLock,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-const ssnRegex = `^(?!000|666|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0000)\\d{4}$`;
-
-const jsSnippet = `
-const ssnRegex = /${ssnRegex}/;
-const isValidSSN = (ssn) => ssnRegex.test(ssn);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_ssn(ssn):
-  ssnRegex = r"${ssnRegex}"
-  return re.match(ssnRegex, ssn) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_ssn(ssn: &str) -> bool {
-  let ssnRegex = Regex::new("${ssnRegex}")
-    .expect("Could not parse SSN validation regex");
-  ssnRegex.is_match(ssn)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidSSN(ssn string) bool {
-  ssnRegex := "${ssnRegex}"
-  re := regexp.MustCompile(ssnRegex)
-  return re.MatchString(ssn)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidSSN(_ ssn: String) -> Bool {
-  let ssnRegex = "${ssnRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", ssnRegex).evaluate(with: ssn)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidSSN(string ssn) {
-    string ssnRegex = "${ssnRegex}";
-    return Regex.IsMatch(ssn, ssnRegex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidSSN(String ssn) {
-    String ssnRegex = "${ssnRegex}";
-    Pattern pattern = Pattern.compile(ssnRegex);
-    Matcher matcher = pattern.matcher(ssn);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidSSN($ssn) {
-  $ssnRegex = "${ssnRegex}";
-  return preg_match("/" . $ssnRegex . "/", $ssn);
-}
-?>
-`;
-
-const jsSnippetBasic = `const basicSSNRegex = /^\\d{3}-\\d{2}-\\d{4}$/;
-const isValidSSN = (ssn) => basicSSNRegex.test(ssn);`;
-
-const pythonSnippetBasic = `import re
-
-basic_ssn_regex = r'^\\d{3}-\\d{2}-\\d{4}$'
-
-def is_valid_ssn(ssn):
-    return bool(re.match(basic_ssn_regex, ssn))`;
-
-const rustSnippetBasic = `use regex::Regex;
-
-fn is_valid_ssn(ssn: &str) -> bool {
-    let re = Regex::new(r"^\\d{3}-\\d{2}-\\d{4}$").unwrap();
-    re.is_match(ssn)
-}`;
-
-const goSnippetBasic = `package main
-
-import (
-    "fmt"
-    "regexp"
-)
-
-func isValidSSN(ssn string) bool {
-    re := regexp.MustCompile(\`^\\d{3}-\\d{2}-\\d{4}$\`)
-    return re.MatchString(ssn)
-}`;
-
-const swiftSnippetBasic = `import Foundation
-
-func isValidSSN(_ ssn: String) -> Bool {
-    let regex = try! NSRegularExpression(pattern: "^\\d{3}-\\d{2}-\\d{4}$")
-    return regex.firstMatch(in: ssn, range: NSRange(location: 0, length: ssn.utf16.count)) != nil
-}`;
-
-const csharpSnippetBasic = `using System;
-using System.Text.RegularExpressions;
-
-class Program {
-    static bool IsValidSSN(string ssn) {
-        return Regex.IsMatch(ssn, @"^\\d{3}-\\d{2}-\\d{4}$");
-    }
-}`;
-
-const javaSnippetBasic = `import java.util.regex.*;
-
-public class SSNValidator {
-    public static boolean isValidSSN(String ssn) {
-        return Pattern.matches("^\\d{3}-\\d{2}-\\d{4}$", ssn);
-    }
-}`;
-
-const phpSnippetBasic = `<?php
-function isValidSSN($ssn) {
-    return preg_match("/^\\d{3}-\\d{2}-\\d{4}$/", $ssn);
-}`;
-
-const testCases = [
-  { ssn: "123-45-6789", valid: true },
-  { ssn: "234-56-7890", valid: true },
-  { ssn: "456-78-9012", valid: true },
-  { ssn: "987-65-4321", valid: true },
-  { ssn: "800-12-3456", valid: true },
-  { ssn: "000-12-3456", valid: false },
-  { ssn: "666-12-3456", valid: false },
-  { ssn: "900-12-3456", valid: false },
-  { ssn: "999-12-3456", valid: false },
-  { ssn: "123-00-4567", valid: false },
-  { ssn: "123-45-0000", valid: false },
-  { ssn: "12-34-5678", valid: false },
-  { ssn: "1234-56-789", valid: false },
-  { ssn: "123456789", valid: false },
-  { ssn: "123-456-789", valid: false },
-  { ssn: "", valid: false },
-  { ssn: "abc-de-fghi", valid: false },
-  { ssn: "123-45-67890", valid: false },
-  { ssn: "123.45.6789", valid: false },
-];
-
-const testCasesBasic = [
-  { ssn: "123-45-6789", valid: true },
-  { ssn: "234-56-7890", valid: true },
-  { ssn: "000-12-3456", valid: true },
-  { ssn: "666-12-3456", valid: true },
-  { ssn: "900-12-3456", valid: true },
-  { ssn: "999-12-3456", valid: true },
-  { ssn: "123-00-4567", valid: true },
-  { ssn: "123-45-0000", valid: true },
-  { ssn: "12-34-5678", valid: false },
-  { ssn: "1234-56-789", valid: false },
-  { ssn: "123456789", valid: false },
-  { ssn: "123-456-789", valid: false },
-  { ssn: "", valid: false },
-  { ssn: "abc-de-fghi", valid: false },
-  { ssn: "123-45-67890", valid: false },
-  { ssn: "123.45.6789", valid: false },
-];
-
-interface TestCase {
-  ssn: string;
-  valid: boolean;
-}
+  Title,
+  Text,
+  Code,
+  List,
+  Table,
+  Tabs,
+  Anchor,
+  Stack,
+  ThemeIcon,
+  Alert
+} from "@mantine/core";
+import { IconCheck, IconX, IconShieldLock } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
+import {
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  jsSnippetBasic,
+  pySnippetBasic,
+  rustSnippetBasic,
+  goSnippetBasic,
+  swiftSnippetBasic,
+  csharpSnippetBasic,
+  javaSnippetBasic,
+  phpSnippetBasic,
+  testCases,
+  testCasesBasic, 
+} from "../../../../data/social-security-number";
 
 const SocialSecurityNumber = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.ssn}>
-      <Table.Td>{element.ssn}</Table.Td>
+    <Table.Tr key={element.pattern}>
+      <Table.Td>{element.pattern}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>
@@ -390,7 +231,7 @@ const SocialSecurityNumber = () => {
             <CodeHighlight code={jsSnippetBasic.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pythonSnippetBasic.trim()} language="py" />
+            <CodeHighlight code={pySnippetBasic.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
             <CodeHighlight code={rustSnippetBasic.trim()} language="rust" />

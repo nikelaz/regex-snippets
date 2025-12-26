@@ -1,218 +1,46 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
 import {
-  IconCheck,
-  IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-const isbn10Regex = `^(?:\\d{9}X|\\d{10})$`;
-const isbn13Regex = `^97[89]\\d{10}$`;
-
-const jsSnippet = `
-const isbn10Regex = /${isbn10Regex}/;
-const isValidISBN10 = (isbn) => isbn10Regex.test(isbn);
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_isbn10(isbn):
-  isbn10Regex = r"${isbn10Regex}"
-  return re.match(isbn10Regex, isbn) is not None
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_isbn10(isbn: &str) -> bool {
-  let isbn10Regex = Regex::new("${isbn10Regex}")
-    .expect("Could not parse ISBN-10 validation regex");
-  isbn10Regex.is_match(isbn)
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "regexp"
-)
-
-func isValidISBN10(isbn string) bool {
-  isbn10Regex := "${isbn10Regex}"
-  re := regexp.MustCompile(isbn10Regex)
-  return re.MatchString(isbn)
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidISBN10(_ isbn: String) -> Bool {
-  let isbn10Regex = "${isbn10Regex}"
-  return NSPredicate(format: "SELF MATCHES %@", isbn10Regex).evaluate(with: isbn)
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidISBN10(string isbn) {
-    string isbn10Regex = "${isbn10Regex}";
-    return Regex.IsMatch(isbn, isbn10Regex);
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidISBN10(String isbn) {
-    String isbn10Regex = "${isbn10Regex}";
-    Pattern pattern = Pattern.compile(isbn10Regex);
-    Matcher matcher = pattern.matcher(isbn);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidISBN10($isbn) {
-  $isbn10Regex = "${isbn10Regex}";
-  return preg_match("/" . $isbn10Regex . "/", $isbn);
-}
-?>
-`;
-
-const jsSnippetISBN13 = `
-const isbn13Regex = /${isbn13Regex}/;
-const isValidISBN13 = (isbn) => isbn13Regex.test(isbn);
-`;
-
-const pySnippetISBN13 = `
-import re
-
-def is_valid_isbn13(isbn):
-  isbn13Regex = r"${isbn13Regex}"
-  return re.match(isbn13Regex, isbn) is not None
-`;
-
-const rustSnippetISBN13 = `
-use regex::Regex;
-
-fn is_valid_isbn13(isbn: &str) -> bool {
-  let isbn13Regex = Regex::new("${isbn13Regex}")
-    .expect("Could not parse ISBN-13 validation regex");
-  isbn13Regex.is_match(isbn)
-}
-`;
-
-const goSnippetISBN13 = `
-package main
-
-import (
-  "regexp"
-)
-
-func isValidISBN13(isbn string) bool {
-  isbn13Regex := "${isbn13Regex}"
-  re := regexp.MustCompile(isbn13Regex)
-  return re.MatchString(isbn)
-}
-`;
-
-const swiftSnippetISBN13 = `
-import Foundation
-
-func isValidISBN13(_ isbn: String) -> Bool {
-  let isbn13Regex = "${isbn13Regex}"
-  return NSPredicate(format: "SELF MATCHES %@", isbn13Regex).evaluate(with: isbn)
-}
-`;
-
-const csharpSnippetISBN13 = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidISBN13(string isbn) {
-    string isbn13Regex = "${isbn13Regex}";
-    return Regex.IsMatch(isbn, isbn13Regex);
-  }
-}
-`;
-
-const javaSnippetISBN13 = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidISBN13(String isbn) {
-    String isbn13Regex = "${isbn13Regex}";
-    Pattern pattern = Pattern.compile(isbn13Regex);
-    Matcher matcher = pattern.matcher(isbn);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetISBN13 = `
-<?php
-function isValidISBN13($isbn) {
-  $isbn13Regex = "${isbn13Regex}";
-  return preg_match("/" . $isbn13Regex . "/", $isbn);
-}
-?>
-`;
-
-const testCasesISBN10 = [
-  { isbn: "0306406152", valid: true },
-  { isbn: "0345391802", valid: true },
-  { isbn: "043942089X", valid: true },
-  { isbn: "156619909X", valid: true },
-  { isbn: "0471958697", valid: true },
-  { isbn: "12345", valid: false },
-  { isbn: "123456789", valid: false },
-  { isbn: "12345678901", valid: false },
-  { isbn: "123456789A", valid: false },
-  { isbn: "X123456789", valid: false },
-  { isbn: "12345X6789", valid: false },
-  { isbn: "", valid: false },
-  { isbn: "abcdefghij", valid: false },
-];
-
-const testCasesISBN13 = [
-  { isbn: "9780306406157", valid: true },
-  { isbn: "9780345391803", valid: true },
-  { isbn: "9780439420891", valid: true },
-  { isbn: "9781566199094", valid: true },
-  { isbn: "9780471958697", valid: true },
-  { isbn: "978030640615", valid: false },
-  { isbn: "97803064061578", valid: false },
-  { isbn: "9770306406157", valid: false },
-  { isbn: "9880306406157", valid: false },
-  { isbn: "123456789012", valid: false },
-  { isbn: "978-0-306-40615-7", valid: false },
-  { isbn: "", valid: false },
-  { isbn: "abcdefghijklm", valid: false },
-];
-
-interface TestCase {
-  isbn: string;
-  valid: boolean;
-}
+  Title,
+  Text,
+  Code,
+  List,
+  Table,
+  Tabs,
+  Anchor,
+  Stack,
+  ThemeIcon
+} from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
+import {
+  jsSnippetISBN10,
+  pySnippetISBN10,
+  rustSnippetISBN10,
+  goSnippetISBN10,
+  swiftSnippetISBN10,
+  csharpSnippetISBN10,
+  javaSnippetISBN10,
+  phpSnippetISBN10,
+  jsSnippetISBN13,
+  pySnippetISBN13,
+  rustSnippetISBN13,
+  goSnippetISBN13,
+  swiftSnippetISBN13,
+  csharpSnippetISBN13,
+  javaSnippetISBN13,
+  phpSnippetISBN13,
+  testCasesISBN10,
+  testCasesISBN13,
+} from "../../../../data/isbn";
 
 const ISBN = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.isbn}>
-      <Table.Td>{element.isbn}</Table.Td>
+    <Table.Tr key={element.pattern}>
+      <Table.Td>{element.pattern}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>
@@ -277,28 +105,28 @@ const ISBN = () => {
           </Tabs.List>
 
           <Tabs.Panel value="js">
-            <CodeHighlight code={jsSnippet.trim()} language="js" />
+            <CodeHighlight code={jsSnippetISBN10.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pySnippet.trim()} language="py" />
+            <CodeHighlight code={pySnippetISBN10.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
-            <CodeHighlight code={rustSnippet.trim()} language="rust" />
+            <CodeHighlight code={rustSnippetISBN10.trim()} language="rust" />
           </Tabs.Panel>
           <Tabs.Panel value="go">
-            <CodeHighlight code={goSnippet.trim()} language="go" />
+            <CodeHighlight code={goSnippetISBN10.trim()} language="go" />
           </Tabs.Panel>
           <Tabs.Panel value="swift">
-            <CodeHighlight code={swiftSnippet.trim()} language="swift" />
+            <CodeHighlight code={swiftSnippetISBN10.trim()} language="swift" />
           </Tabs.Panel>
           <Tabs.Panel value="csharp">
-            <CodeHighlight code={csharpSnippet.trim()} language="csharp" />
+            <CodeHighlight code={csharpSnippetISBN10.trim()} language="csharp" />
           </Tabs.Panel>
           <Tabs.Panel value="java">
-            <CodeHighlight code={javaSnippet.trim()} language="java" />
+            <CodeHighlight code={javaSnippetISBN10.trim()} language="java" />
           </Tabs.Panel>
           <Tabs.Panel value="php">
-            <CodeHighlight code={phpSnippet.trim()} language="php" />
+            <CodeHighlight code={phpSnippetISBN10.trim()} language="php" />
           </Tabs.Panel>
         </Tabs>
       </Stack>

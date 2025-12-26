@@ -1,227 +1,46 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
 import {
-  IconCheck,
-  IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-const integerRegex = `^-?\\d+$`;
-const decimalRegex = `^-?\\d+(\\.\\d+)?$`;
-const positiveIntegerRegex = `^\\d+$`;
-const positiveDecimalRegex = `^\\d+(\\.\\d+)?$`;
-
-const jsSnippetInteger = `
-const integerRegex = /${integerRegex}/;
-const isValidInteger = (number) => integerRegex.test(number);
-`;
-
-const pySnippetInteger = `
-import re
-
-def is_valid_integer(number):
-  integerRegex = r"${integerRegex}"
-  return re.match(integerRegex, number) is not None
-`;
-
-const rustSnippetInteger = `
-use regex::Regex;
-
-fn is_valid_integer(number: &str) -> bool {
-  let integerRegex = Regex::new("${integerRegex}")
-    .expect("Could not parse integer validation regex");
-  integerRegex.is_match(number)
-}
-`;
-
-const goSnippetInteger = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidInteger(number string) bool {
-  integerRegex := "${integerRegex}"
-  re := regexp.MustCompile(integerRegex)
-  return re.MatchString(number)
-}
-`;
-
-const swiftSnippetInteger = `
-import Foundation
-
-func isValidInteger(_ number: String) -> Bool {
-  let integerRegex = "${integerRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", integerRegex).evaluate(with: number)
-}
-`;
-
-const csharpSnippetInteger = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidInteger(string number) {
-    string integerRegex = "${integerRegex}";
-    return Regex.IsMatch(number, integerRegex);
-  }
-}
-`;
-
-const javaSnippetInteger = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidInteger(String number) {
-    String integerRegex = "${integerRegex}";
-    Pattern pattern = Pattern.compile(integerRegex);
-    Matcher matcher = pattern.matcher(number);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetInteger = `
-<?php
-function isValidInteger($number) {
-  $integerRegex = "${integerRegex}";
-  return (bool) preg_match("/" . $integerRegex . "/", $number);
-}
-?>
-`;
-
-const jsSnippetDecimal = `
-const decimalRegex = /${decimalRegex}/;
-const isValidDecimal = (number) => decimalRegex.test(number);
-`;
-
-const pySnippetDecimal = `
-import re
-
-def is_valid_decimal(number):
-  decimalRegex = r"${decimalRegex}"
-  return re.match(decimalRegex, number) is not None
-`;
-
-const rustSnippetDecimal = `
-use regex::Regex;
-
-fn is_valid_decimal(number: &str) -> bool {
-  let decimalRegex = Regex::new("${decimalRegex}")
-    .expect("Could not parse decimal validation regex");
-  decimalRegex.is_match(number)
-}
-`;
-
-const goSnippetDecimal = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValidDecimal(number string) bool {
-  decimalRegex := "${decimalRegex}"
-  re := regexp.MustCompile(decimalRegex)
-  return re.MatchString(number)
-}
-`;
-
-const swiftSnippetDecimal = `
-import Foundation
-
-func isValidDecimal(_ number: String) -> Bool {
-  let decimalRegex = "${decimalRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", decimalRegex).evaluate(with: number)
-}
-`;
-
-const csharpSnippetDecimal = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValidDecimal(string number) {
-    string decimalRegex = "${decimalRegex}";
-    return Regex.IsMatch(number, decimalRegex);
-  }
-}
-`;
-
-const javaSnippetDecimal = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidDecimal(String number) {
-    String decimalRegex = "${decimalRegex}";
-    Pattern pattern = Pattern.compile(decimalRegex);
-    Matcher matcher = pattern.matcher(number);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetDecimal = `
-<?php
-function isValidDecimal($number) {
-  $decimalRegex = "${decimalRegex}";
-  return (bool) preg_match("/" . $decimalRegex . "/", $number);
-}
-?>
-`;
-
-const testCasesInteger = [
-  { number: "123", valid: true },
-  { number: "-456", valid: true },
-  { number: "0", valid: true },
-  { number: "-0", valid: true },
-  { number: "1000000", valid: true },
-  { number: "12.34", valid: false },
-  { number: "12.0", valid: false },
-  { number: "abc", valid: false },
-  { number: "12a", valid: false },
-  { number: "", valid: false },
-  { number: "+123", valid: false },
-  { number: "1,234", valid: false },
-  { number: "1 234", valid: false },
-  { number: "--123", valid: false },
-];
-
-const testCasesDecimal = [
-  { number: "123", valid: true },
-  { number: "123.45", valid: true },
-  { number: "-456", valid: true },
-  { number: "-456.78", valid: true },
-  { number: "0", valid: true },
-  { number: "0.0", valid: true },
-  { number: "-0.5", valid: true },
-  { number: "1000000.999", valid: true },
-  { number: "abc", valid: false },
-  { number: "12a", valid: false },
-  { number: "", valid: false },
-  { number: "+123.45", valid: false },
-  { number: "1,234.56", valid: false },
-  { number: "1 234.56", valid: false },
-  { number: ".5", valid: false },
-  { number: "123.", valid: false },
-  { number: "12.34.56", valid: false },
-];
-
-interface TestCase {
-  number: string;
-  valid: boolean;
-}
+  Title,
+  Text,
+  Code,
+  List,
+  Table,
+  Tabs,
+  Anchor,
+  Stack,
+  ThemeIcon
+} from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
+import {
+  jsSnippetInteger,
+  pySnippetInteger,
+  rustSnippetInteger,
+  goSnippetInteger,
+  swiftSnippetInteger,
+  csharpSnippetInteger,
+  javaSnippetInteger,
+  phpSnippetInteger,
+  jsSnippetDecimal,
+  pySnippetDecimal,
+  rustSnippetDecimal,
+  goSnippetDecimal,
+  swiftSnippetDecimal,
+  csharpSnippetDecimal,
+  javaSnippetDecimal,
+  phpSnippetDecimal,
+  testCasesInteger,
+  testCasesDecimal,
+} from "../../../../data/numbers";
 
 const Numbers = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
-    <Table.Tr key={`${element.number}-${index}`}>
-      <Table.Td>{element.number || '(empty string)'}</Table.Td>
+    <Table.Tr key={`${element.pattern}-${index}`}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>

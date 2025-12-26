@@ -110,7 +110,7 @@ export const regexBasic = `^\\d{3}-\\d{2}-\\d{4}$`;
 export const jsSnippetBasic = `const ssnRegex = /${regexBasic}/;
 const isValidSSN = (ssn) => ssnRegex.test(ssn);`;
 
-export const pythonSnippetBasic = `import re
+export const pySnippetBasic = `import re
 
 ssn_regex = r'${regexBasic}'
 

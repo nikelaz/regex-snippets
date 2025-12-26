@@ -1,351 +1,57 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon, Alert } from '@mantine/core';
 import {
-  IconCheck,
-  IconX,
-  IconInfoCircle,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-// Line range validation (5-20 lines)
-const lineRangeRegex = `^(?:[^\\n]*\\n){4,19}[^\\n]*$`;
-// Minimum lines validation (5+ lines)
-const minLinesRegex = `^(?:[^\\n]*\\n){4,}[^\\n]*$`;
-// Maximum lines validation (0-20 lines)
-const maxLinesRegex = `^(?:[^\\n]*\\n){0,19}[^\\n]*$`;
-
-const jsSnippet = `
-const lineRangeRegex = /${lineRangeRegex}/;
-const isValidLineCount = (text) => lineRangeRegex.test(text);
-
-// For configurable min/max:
-function validateLineCount(text, min, max) {
-  const lines = text.split('\\n').length;
-  return lines >= min && lines <= max;
-}
-`;
-
-const pySnippet = `
-import re
-
-def is_valid_line_count(text):
-  lineRangeRegex = r"${lineRangeRegex}"
-  return re.match(lineRangeRegex, text, re.MULTILINE) is not None
-
-# For configurable min/max:
-def validate_line_count(text, min_lines, max_lines):
-  lines = text.count('\\n') + 1
-  return min_lines <= lines <= max_lines
-`;
-
-const rustSnippet = `
-use regex::Regex;
-
-fn is_valid_line_count(text: &str) -> bool {
-  let line_range_regex = Regex::new(r"${lineRangeRegex}")
-    .expect("Could not parse line count validation regex");
-  line_range_regex.is_match(text)
-}
-
-// For configurable min/max:
-fn validate_line_count(text: &str, min: usize, max: usize) -> bool {
-  let lines = text.matches('\\n').count() + 1;
-  lines >= min && lines <= max
-}
-`;
-
-const goSnippet = `
-package main
-
-import (
-  "regexp"
-  "strings"
-)
-
-func isValidLineCount(text string) bool {
-  lineRangeRegex := "${lineRangeRegex}"
-  re := regexp.MustCompile(lineRangeRegex)
-  return re.MatchString(text)
-}
-
-// For configurable min/max:
-func validateLineCount(text string, min int, max int) bool {
-  lines := strings.Count(text, "\\n") + 1
-  return lines >= min && lines <= max
-}
-`;
-
-const swiftSnippet = `
-import Foundation
-
-func isValidLineCount(_ text: String) -> Bool {
-  let lineRangeRegex = "${lineRangeRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", lineRangeRegex).evaluate(with: text)
-}
-
-// For configurable min/max:
-func validateLineCount(_ text: String, min: Int, max: Int) -> Bool {
-  let lines = text.components(separatedBy: "\\n").count
-  return lines >= min && lines <= max
-}
-`;
-
-const csharpSnippet = `
-using System;
-using System.Text.RegularExpressions;
-using System.Linq;
-
-class Application {
-  static bool IsValidLineCount(string text) {
-    string lineRangeRegex = "${lineRangeRegex}";
-    return Regex.IsMatch(text, lineRangeRegex);
-  }
-  
-  // For configurable min/max:
-  static bool ValidateLineCount(string text, int min, int max) {
-    int lines = text.Split('\\n').Length;
-    return lines >= min && lines <= max;
-  }
-}
-`;
-
-const javaSnippet = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValidLineCount(String text) {
-    String lineRangeRegex = "${lineRangeRegex}";
-    Pattern pattern = Pattern.compile(lineRangeRegex);
-    Matcher matcher = pattern.matcher(text);
-    return matcher.matches();
-  }
-  
-  // For configurable min/max:
-  public static boolean validateLineCount(String text, int min, int max) {
-    int lines = text.split("\\n").length;
-    return lines >= min && lines <= max;
-  }
-}
-`;
-
-const phpSnippet = `
-<?php
-function isValidLineCount($text) {
-  $lineRangeRegex = "${lineRangeRegex}";
-  return preg_match("/" . $lineRangeRegex . "/", $text);
-}
-
-// For configurable min/max:
-function validateLineCount($text, $min, $max) {
-  $lines = substr_count($text, "\\n") + 1;
-  return $lines >= $min && $lines <= $max;
-}
-?>
-`;
-
-const jsSnippetMin = `
-const minLinesRegex = /${minLinesRegex}/;
-const hasMinimumLines = (text) => minLinesRegex.test(text);
-`;
-
-const pySnippetMin = `
-import re
-
-def has_minimum_lines(text):
-  minLinesRegex = r"${minLinesRegex}"
-  return re.match(minLinesRegex, text, re.MULTILINE) is not None
-`;
-
-const rustSnippetMin = `
-use regex::Regex;
-
-fn has_minimum_lines(text: &str) -> bool {
-  let min_lines_regex = Regex::new(r"${minLinesRegex}")
-    .expect("Could not parse minimum lines regex");
-  min_lines_regex.is_match(text)
-}
-`;
-
-const goSnippetMin = `
-package main
-
-import (
-  "regexp"
-)
-
-func hasMinimumLines(text string) bool {
-  minLinesRegex := "${minLinesRegex}"
-  re := regexp.MustCompile(minLinesRegex)
-  return re.MatchString(text)
-}
-`;
-
-const swiftSnippetMin = `
-import Foundation
-
-func hasMinimumLines(_ text: String) -> Bool {
-  let minLinesRegex = "${minLinesRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", minLinesRegex).evaluate(with: text)
-}
-`;
-
-const csharpSnippetMin = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool HasMinimumLines(string text) {
-    string minLinesRegex = "${minLinesRegex}";
-    return Regex.IsMatch(text, minLinesRegex);
-  }
-}
-`;
-
-const javaSnippetMin = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean hasMinimumLines(String text) {
-    String minLinesRegex = "${minLinesRegex}";
-    Pattern pattern = Pattern.compile(minLinesRegex);
-    Matcher matcher = pattern.matcher(text);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetMin = `
-<?php
-function hasMinimumLines($text) {
-  $minLinesRegex = "${minLinesRegex}";
-  return preg_match("/" . $minLinesRegex . "/", $text);
-}
-?>
-`;
-
-const jsSnippetMax = `
-const maxLinesRegex = /${maxLinesRegex}/;
-const hasMaximumLines = (text) => maxLinesRegex.test(text);
-`;
-
-const pySnippetMax = `
-import re
-
-def has_maximum_lines(text):
-  maxLinesRegex = r"${maxLinesRegex}"
-  return re.match(maxLinesRegex, text, re.MULTILINE) is not None
-`;
-
-const rustSnippetMax = `
-use regex::Regex;
-
-fn has_maximum_lines(text: &str) -> bool {
-  let max_lines_regex = Regex::new(r"${maxLinesRegex}")
-    .expect("Could not parse maximum lines regex");
-  max_lines_regex.is_match(text)
-}
-`;
-
-const goSnippetMax = `
-package main
-
-import (
-  "regexp"
-)
-
-func hasMaximumLines(text string) bool {
-  maxLinesRegex := "${maxLinesRegex}"
-  re := regexp.MustCompile(maxLinesRegex)
-  return re.MatchString(text)
-}
-`;
-
-const swiftSnippetMax = `
-import Foundation
-
-func hasMaximumLines(_ text: String) -> Bool {
-  let maxLinesRegex = "${maxLinesRegex}"
-  return NSPredicate(format: "SELF MATCHES %@", maxLinesRegex).evaluate(with: text)
-}
-`;
-
-const csharpSnippetMax = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool HasMaximumLines(string text) {
-    string maxLinesRegex = "${maxLinesRegex}";
-    return Regex.IsMatch(text, maxLinesRegex);
-  }
-}
-`;
-
-const javaSnippetMax = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean hasMaximumLines(String text) {
-    String maxLinesRegex = "${maxLinesRegex}";
-    Pattern pattern = Pattern.compile(maxLinesRegex);
-    Matcher matcher = pattern.matcher(text);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippetMax = `
-<?php
-function hasMaximumLines($text) {
-  $maxLinesRegex = "${maxLinesRegex}";
-  return preg_match("/" . $maxLinesRegex . "/", $text);
-}
-?>
-`;
-
-interface TestCase {
-  text: string;
-  valid: boolean;
-  description: string;
-}
-
-const testCasesRange: TestCase[] = [
-  { text: "Line 1\nLine 2\nLine 3\nLine 4\nLine 5", valid: true, description: "5 lines (minimum boundary)" },
-  { text: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10", valid: true, description: "10 lines (middle range)" },
-  { text: "A\nB\nC\nD\nE\nF\nG\nH\nI\nJ\nK\nL\nM\nN\nO\nP\nQ\nR\nS\nT", valid: true, description: "20 lines (maximum boundary)" },
-  { text: "Single line", valid: false, description: "1 line (below minimum)" },
-  { text: "Line 1\nLine 2\nLine 3\nLine 4", valid: false, description: "4 lines (below minimum)" },
-  { text: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21", valid: false, description: "21 lines (above maximum)" },
-  { text: "", valid: false, description: "Empty string" },
-  { text: "First\n\nThird\nFourth\nFifth", valid: true, description: "5 lines with empty line" },
-];
-
-const testCasesMin: TestCase[] = [
-  { text: "Line 1\nLine 2\nLine 3\nLine 4\nLine 5", valid: true, description: "5 lines (minimum boundary)" },
-  { text: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10", valid: true, description: "10 lines" },
-  { text: "A\nB\nC\nD\nE\nF\nG\nH\nI\nJ\nK\nL\nM\nN\nO\nP\nQ\nR\nS\nT\nU\nV\nW\nX\nY\nZ", valid: true, description: "26 lines (well above minimum)" },
-  { text: "Line 1\nLine 2\nLine 3\nLine 4", valid: false, description: "4 lines (below minimum)" },
-  { text: "Single line", valid: false, description: "1 line" },
-  { text: "", valid: false, description: "Empty string" },
-  { text: "1\n2\n3", valid: false, description: "3 lines" },
-];
-
-const testCasesMax: TestCase[] = [
-  { text: "", valid: true, description: "Empty string" },
-  { text: "Single line", valid: true, description: "1 line" },
-  { text: "Line 1\nLine 2\nLine 3\nLine 4\nLine 5", valid: true, description: "5 lines" },
-  { text: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20", valid: true, description: "20 lines (maximum boundary)" },
-  { text: "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21", valid: false, description: "21 lines (above maximum)" },
-  { text: "A\nB\nC\nD\nE\nF\nG\nH\nI\nJ\nK\nL\nM\nN\nO\nP\nQ\nR\nS\nT\nU\nV\nW\nX\nY\nZ", valid: false, description: "26 lines (well above maximum)" },
-];
+  Title,
+  Text,
+  Code,
+  List,
+  Table,
+  Tabs,
+  Anchor,
+  Stack,
+  ThemeIcon,
+  Alert
+} from "@mantine/core";
+import { IconCheck, IconX, IconInfoCircle } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
+import {
+  jsSnippetRange,
+  pySnippetRange,
+  rustSnippetRange,
+  goSnippetRange,
+  swiftSnippetRange,
+  csharpSnippetRange,
+  javaSnippetRange,
+  phpSnippetRange,
+  jsSnippetMin,
+  pySnippetMin,
+  rustSnippetMin,
+  goSnippetMin,
+  swiftSnippetMin,
+  csharpSnippetMin,
+  javaSnippetMin,
+  phpSnippetMin,
+  jsSnippetMax,
+  pySnippetMax,
+  rustSnippetMax,
+  goSnippetMax,
+  swiftSnippetMax,
+  csharpSnippetMax,
+  javaSnippetMax,
+  phpSnippetMax,
+  testCasesRange,
+  testCasesMin,
+  testCasesMax,
+} from "../../../../data/number-of-lines";
 
 const NumberOfLines = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase, index: number) => (
     <Table.Tr key={index}>
-      <Table.Td style={{ fontFamily: 'monospace', fontSize: '0.85em' }}>{element.description}</Table.Td>
+      <Table.Td style={{ fontFamily: 'monospace', fontSize: '0.85em' }}>
+        {element.pattern}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>
@@ -422,28 +128,28 @@ const NumberOfLines = () => {
           </Tabs.List>
 
           <Tabs.Panel value="js">
-            <CodeHighlight code={jsSnippet.trim()} language="js" />
+            <CodeHighlight code={jsSnippetRange.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pySnippet.trim()} language="py" />
+            <CodeHighlight code={pySnippetRange.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
-            <CodeHighlight code={rustSnippet.trim()} language="rust" />
+            <CodeHighlight code={rustSnippetRange.trim()} language="rust" />
           </Tabs.Panel>
           <Tabs.Panel value="go">
-            <CodeHighlight code={goSnippet.trim()} language="go" />
+            <CodeHighlight code={goSnippetRange.trim()} language="go" />
           </Tabs.Panel>
           <Tabs.Panel value="swift">
-            <CodeHighlight code={swiftSnippet.trim()} language="swift" />
+            <CodeHighlight code={swiftSnippetRange.trim()} language="swift" />
           </Tabs.Panel>
           <Tabs.Panel value="csharp">
-            <CodeHighlight code={csharpSnippet.trim()} language="csharp" />
+            <CodeHighlight code={csharpSnippetRange.trim()} language="csharp" />
           </Tabs.Panel>
           <Tabs.Panel value="java">
-            <CodeHighlight code={javaSnippet.trim()} language="java" />
+            <CodeHighlight code={javaSnippetRange.trim()} language="java" />
           </Tabs.Panel>
           <Tabs.Panel value="php">
-            <CodeHighlight code={phpSnippet.trim()} language="php" />
+            <CodeHighlight code={phpSnippetRange.trim()} language="php" />
           </Tabs.Panel>
         </Tabs>
       </Stack>

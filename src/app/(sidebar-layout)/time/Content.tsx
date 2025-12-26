@@ -1,246 +1,46 @@
 "use client";
 
-import { Title, Text, Code, List, Table, Tabs, Anchor, Stack, ThemeIcon } from '@mantine/core';
 import {
-  IconCheck,
-  IconX,
-} from '@tabler/icons-react';
-import { CodeHighlight } from '@mantine/code-highlight';
-
-// 24-hour format with optional seconds (HH:MM or HH:MM:SS)
-const time24Regex = `^(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d)?$`;
-
-// 12-hour format with AM/PM (hh:MM AM/PM or hh:MM:SS AM/PM)
-const time12Regex = `^(?:0?[1-9]|1[0-2]):[0-5]\\d(?::[0-5]\\d)?\\s?[AaPp][Mm]$`;
-
-const jsSnippet24 = `
-const time24Regex = /${time24Regex}/;
-const isValid24HourTime = (time) => time24Regex.test(time);
-`;
-
-const pySnippet24 = `
-import re
-
-def is_valid_24_hour_time(time):
-  time_regex = r"${time24Regex}"
-  return re.match(time_regex, time) is not None
-`;
-
-const rustSnippet24 = `
-use regex::Regex;
-
-fn is_valid_24_hour_time(time: &str) -> bool {
-  let time_regex = Regex::new("${time24Regex}")
-    .expect("Could not parse time validation regex");
-  time_regex.is_match(time)
-}
-`;
-
-const goSnippet24 = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValid24HourTime(time string) bool {
-  timeRegex := "${time24Regex}"
-  re := regexp.MustCompile(timeRegex)
-  return re.MatchString(time)
-}
-`;
-
-const swiftSnippet24 = `
-import Foundation
-
-func isValid24HourTime(_ time: String) -> Bool {
-  let timeRegex = "${time24Regex}"
-  return NSPredicate(format: "SELF MATCHES %@", timeRegex).evaluate(with: time)
-}
-`;
-
-const csharpSnippet24 = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValid24HourTime(string time) {
-    string timeRegex = "${time24Regex}";
-    return Regex.IsMatch(time, timeRegex);
-  }
-}
-`;
-
-const javaSnippet24 = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValid24HourTime(String time) {
-    String timeRegex = "${time24Regex}";
-    Pattern pattern = Pattern.compile(timeRegex);
-    Matcher matcher = pattern.matcher(time);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet24 = `
-<?php
-function isValid24HourTime($time) {
-  $timeRegex = "${time24Regex}";
-  return preg_match("/" . $timeRegex . "/", $time);
-}
-?>
-`;
-
-const jsSnippet12 = `
-const time12Regex = /${time12Regex}/;
-const isValid12HourTime = (time) => time12Regex.test(time);
-`;
-
-const pySnippet12 = `
-import re
-
-def is_valid_12_hour_time(time):
-  time_regex = r"${time12Regex}"
-  return re.match(time_regex, time) is not None
-`;
-
-const rustSnippet12 = `
-use regex::Regex;
-
-fn is_valid_12_hour_time(time: &str) -> bool {
-  let time_regex = Regex::new("${time12Regex}")
-    .expect("Could not parse time validation regex");
-  time_regex.is_match(time)
-}
-`;
-
-const goSnippet12 = `
-package main
-
-import (
-  "fmt"
-  "regexp"
-)
-
-func isValid12HourTime(time string) bool {
-  timeRegex := "${time12Regex}"
-  re := regexp.MustCompile(timeRegex)
-  return re.MatchString(time)
-}
-`;
-
-const swiftSnippet12 = `
-import Foundation
-
-func isValid12HourTime(_ time: String) -> Bool {
-  let timeRegex = "${time12Regex}"
-  return NSPredicate(format: "SELF MATCHES %@", timeRegex).evaluate(with: time)
-}
-`;
-
-const csharpSnippet12 = `
-using System;
-using System.Text.RegularExpressions;
-
-class Application {
-  static bool IsValid12HourTime(string time) {
-    string timeRegex = "${time12Regex}";
-    return Regex.IsMatch(time, timeRegex);
-  }
-}
-`;
-
-const javaSnippet12 = `
-import java.util.regex.*;
-
-public class Application {
-  public static boolean isValid12HourTime(String time) {
-    String timeRegex = "${time12Regex}";
-    Pattern pattern = Pattern.compile(timeRegex);
-    Matcher matcher = pattern.matcher(time);
-    return matcher.matches();
-  }
-}
-`;
-
-const phpSnippet12 = `
-<?php
-function isValid12HourTime($time) {
-  $timeRegex = "${time12Regex}";
-  return preg_match("/" . $timeRegex . "/", $time);
-}
-?>
-`;
-
-const testCases24 = [
-  { time: "00:00", valid: true },
-  { time: "00:00:00", valid: true },
-  { time: "09:30", valid: true },
-  { time: "09:30:45", valid: true },
-  { time: "12:00", valid: true },
-  { time: "12:00:00", valid: true },
-  { time: "23:59", valid: true },
-  { time: "23:59:59", valid: true },
-  { time: "13:45:30", valid: true },
-  { time: "00:59:59", valid: true },
-  { time: "24:00", valid: false },
-  { time: "25:00", valid: false },
-  { time: "12:60", valid: false },
-  { time: "12:30:60", valid: false },
-  { time: "9:30", valid: false },
-  { time: "09:5", valid: false },
-  { time: "9:5", valid: false },
-  { time: "12:00 PM", valid: false },
-  { time: "1200", valid: false },
-  { time: "12:", valid: false },
-  { time: ":30", valid: false },
-  { time: "12:30:5", valid: false },
-  { time: "", valid: false },
-];
-
-const testCases12 = [
-  { time: "12:00 AM", valid: true },
-  { time: "12:00 PM", valid: true },
-  { time: "1:00 AM", valid: true },
-  { time: "1:00 PM", valid: true },
-  { time: "01:00 AM", valid: true },
-  { time: "01:00 PM", valid: true },
-  { time: "9:30 AM", valid: true },
-  { time: "09:30 PM", valid: true },
-  { time: "12:59 AM", valid: true },
-  { time: "11:59 PM", valid: true },
-  { time: "12:00:00 AM", valid: true },
-  { time: "11:59:59 PM", valid: true },
-  { time: "1:30:45 PM", valid: true },
-  { time: "12:00AM", valid: true },
-  { time: "12:00PM", valid: true },
-  { time: "12:00 am", valid: true },
-  { time: "12:00 pm", valid: true },
-  { time: "00:00 AM", valid: false },
-  { time: "13:00 PM", valid: false },
-  { time: "12:60 PM", valid: false },
-  { time: "12:30:60 AM", valid: false },
-  { time: "12:00", valid: false },
-  { time: "9:5 AM", valid: false },
-  { time: "12:00 XM", valid: false },
-  { time: "25:00 PM", valid: false },
-  { time: "", valid: false },
-];
-
-interface TestCase {
-  time: string;
-  valid: boolean;
-}
+  Title,
+  Text,
+  Code,
+  List,
+  Table,
+  Tabs,
+  Anchor,
+  Stack,
+  ThemeIcon
+} from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { CodeHighlight } from "@mantine/code-highlight";
+import type TestCase from "../../../../types/test-case";
+import {
+  jsSnippet,
+  pySnippet,
+  rustSnippet,
+  goSnippet,
+  swiftSnippet,
+  csharpSnippet,
+  javaSnippet,
+  phpSnippet,
+  jsSnippet12,
+  pySnippet12,
+  rustSnippet12,
+  goSnippet12,
+  swiftSnippet12,
+  csharpSnippet12,
+  javaSnippet12,
+  phpSnippet12,
+  testCases,
+  testCases12,
+} from "../../../../data/time";
 
 const Time = () => {
   const testCaseRows = (data: TestCase[]) => data.map((element: TestCase) => (
-    <Table.Tr key={element.time || 'empty'}>
-      <Table.Td>{element.time || '(empty string)'}</Table.Td>
+    <Table.Tr key={element.pattern || 'empty'}>
+      <Table.Td>{element.pattern || '(empty string)'}</Table.Td>
       <Table.Td>
-        {element.valid ? (
+        {element.isValid ? (
           <ThemeIcon radius="xl" color="green" size="sm">
             <IconCheck style={{ width: '70%', height: '70%' }} />
           </ThemeIcon>
@@ -308,28 +108,28 @@ const Time = () => {
           </Tabs.List>
 
           <Tabs.Panel value="js">
-            <CodeHighlight code={jsSnippet24.trim()} language="js" />
+            <CodeHighlight code={jsSnippet.trim()} language="js" />
           </Tabs.Panel>
           <Tabs.Panel value="python">
-            <CodeHighlight code={pySnippet24.trim()} language="py" />
+            <CodeHighlight code={pySnippet.trim()} language="py" />
           </Tabs.Panel>
           <Tabs.Panel value="rust">
-            <CodeHighlight code={rustSnippet24.trim()} language="rust" />
+            <CodeHighlight code={rustSnippet.trim()} language="rust" />
           </Tabs.Panel>
           <Tabs.Panel value="go">
-            <CodeHighlight code={goSnippet24.trim()} language="go" />
+            <CodeHighlight code={goSnippet.trim()} language="go" />
           </Tabs.Panel>
           <Tabs.Panel value="swift">
-            <CodeHighlight code={swiftSnippet24.trim()} language="swift" />
+            <CodeHighlight code={swiftSnippet.trim()} language="swift" />
           </Tabs.Panel>
           <Tabs.Panel value="csharp">
-            <CodeHighlight code={csharpSnippet24.trim()} language="csharp" />
+            <CodeHighlight code={csharpSnippet.trim()} language="csharp" />
           </Tabs.Panel>
           <Tabs.Panel value="java">
-            <CodeHighlight code={javaSnippet24.trim()} language="java" />
+            <CodeHighlight code={javaSnippet.trim()} language="java" />
           </Tabs.Panel>
           <Tabs.Panel value="php">
-            <CodeHighlight code={phpSnippet24.trim()} language="php" />
+            <CodeHighlight code={phpSnippet.trim()} language="php" />
           </Tabs.Panel>
         </Tabs>
       </Stack>
@@ -343,7 +143,7 @@ const Time = () => {
               <Table.Th>Valid</Table.Th>
             </Table.Tr>
           </Table.Thead>
-          <Table.Tbody>{testCaseRows(testCases24)}</Table.Tbody>
+          <Table.Tbody>{testCaseRows(testCases)}</Table.Tbody>
         </Table>
       </Stack>
 
