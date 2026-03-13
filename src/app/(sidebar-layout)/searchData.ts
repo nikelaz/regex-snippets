@@ -95,9 +95,14 @@ export const searchData: SearchItem[] = [
     label: 'Unix Path',
     keywords: ['unix', 'path', 'file', 'directory', 'linux', 'mac', 'filesystem']
   },
-  { 
-    link: '/windows-path', 
+  {
+    link: '/windows-path',
     label: 'Windows Path',
     keywords: ['windows', 'path', 'file', 'directory', 'drive', 'filesystem']
+  },
+  {
+    link: '/html-tag',
+    label: 'HTML Tag',
+    keywords: ['html', 'tag', 'element', 'validation', 'extraction', 'markup', 'attribute']
   },
 ];

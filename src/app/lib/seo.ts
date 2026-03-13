@@ -118,6 +118,12 @@ export const pagesMetadata: Record<string, PageSEOData> = {
     keywords: ['Windows path regex', 'Windows file path', 'drive letter regex', 'UNC path pattern'],
     path: '/windows-path',
   },
+  'html-tag': {
+    title: 'HTML Tag Validation & Extraction Regex',
+    description: 'Regular expressions for validating and extracting HTML tags. Supports opening, closing, and self-closing tags with attributes across multiple languages.',
+    keywords: ['HTML tag regex', 'HTML validation', 'HTML extraction', 'tag pattern', 'HTML attribute regex'],
+    path: '/html-tag',
+  },
 };
 
 export function generatePageMetadata(pageKey: string): Metadata {
