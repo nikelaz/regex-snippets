@@ -20,6 +20,7 @@ import {
   IconWorldWww,
   IconBrandWindows,
   IconFile,
+  IconCode,
 } from '@tabler/icons-react';
 import { Text, Anchor } from '@mantine/core';
 import Link from 'next/link';
@@ -47,6 +48,7 @@ const templates = [
   { link: '/domain', label: 'Domain', icon: IconWorldWww },
   { link: '/url-and-path', label: 'URL & Path', icon: IconLink },
   { link: '/ip-address', label: 'IP Address', icon: IconRouter },
+  { link: '/html-tag', label: 'HTML Tag', icon: IconCode },
   { link: '/unix-path', label: 'Unix Path', icon: IconFile },
   { link: '/windows-path', label: 'Windows Path', icon: IconBrandWindows },
 ];
