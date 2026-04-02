@@ -40,6 +40,12 @@ export const pagesMetadata: Record<string, PageSEOData> = {
     keywords: ['alphanumeric regex', 'alphanumeric validation', 'letters and numbers regex', 'character pattern'],
     path: '/alphanumeric',
   },
+  username: {
+    title: 'Username Validation Regex',
+    description: 'Username validation regex pattern with length rules, allowed separators, and starting-character restrictions.',
+    keywords: ['username regex', 'username validation', 'handle regex', 'login name pattern', 'username format'],
+    path: '/username',
+  },
   password: {
     title: 'Password Validation Regex',
     description: 'Strong password validation regex pattern with uppercase, lowercase, number, special character, and length requirements.',
