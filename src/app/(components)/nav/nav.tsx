@@ -7,6 +7,7 @@ import {
   IconCalendarWeek,
   IconClock,
   IconSortAZ,
+  IconLock,
   IconRuler2,
   IconAlignLeft,
   IconCheck,
@@ -37,6 +38,7 @@ const templates = [
   { link: '/date', label: 'Date', icon: IconCalendarWeek },
   { link: '/time', label: 'Time', icon: IconClock }, 
   { link: '/alphanumeric', label: 'Alphanumeric', icon: IconSortAZ },
+  { link: '/password', label: 'Password', icon: IconLock },
   { link: '/text-length', label: 'Text Length', icon: IconRuler2 },
   { link: '/number-of-lines', label: 'Number of Lines', icon: IconAlignLeft },
   { link: '/affirmation', label: 'Affirmation', icon: IconCheck },
@@ -87,4 +89,3 @@ const Nav = (props: NavProps) => {
 };
 
 export default Nav;
-

@@ -35,6 +35,11 @@ export const searchData: SearchItem[] = [
     label: 'Alphanumeric',
     keywords: ['alphanumeric', 'letters', 'numbers', 'characters', 'text']
   },
+  {
+    link: '/password',
+    label: 'Password',
+    keywords: ['password', 'passphrase', 'login', 'credential', 'security', 'validation', 'strength']
+  },
   { 
     link: '/text-length', 
     label: 'Text Length',
