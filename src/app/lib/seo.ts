@@ -46,6 +46,12 @@ export const pagesMetadata: Record<string, PageSEOData> = {
     keywords: ['username regex', 'username validation', 'handle regex', 'login name pattern', 'username format'],
     path: '/username',
   },
+  'hex-color-code': {
+    title: 'Hex Color Code Validation Regex',
+    description: 'Hex color validation regex for CSS-style #RGB and #RRGGBB color codes with required leading hash.',
+    keywords: ['hex color regex', 'hex color validation', 'css color regex', 'hex code pattern', 'color code validation'],
+    path: '/hex-color-code',
+  },
   password: {
     title: 'Password Validation Regex',
     description: 'Strong password validation regex pattern with uppercase, lowercase, number, special character, and length requirements.',

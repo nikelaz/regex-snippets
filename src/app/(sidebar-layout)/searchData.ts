@@ -41,6 +41,11 @@ export const searchData: SearchItem[] = [
     keywords: ['username', 'user name', 'handle', 'login', 'account', 'validation', 'nickname']
   },
   {
+    link: '/hex-color-code',
+    label: 'Hex Color',
+    keywords: ['hex', 'color', 'css', 'palette', 'rgb', 'design token', 'validation']
+  },
+  {
     link: '/password',
     label: 'Password',
     keywords: ['password', 'passphrase', 'login', 'credential', 'security', 'validation', 'strength']

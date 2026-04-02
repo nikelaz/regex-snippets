@@ -85,6 +85,168 @@ function isValidPassword($password) {
 ?>
 `;
 
+export const jsSnippetBalanced = `
+const passwordRegex = /${balancedRegex}/;
+
+const isValidPassword = (password) => passwordRegex.test(password);
+`;
+
+export const pySnippetBalanced = `
+import re
+
+def is_valid_password(password):
+  password_regex = r"${balancedRegex}"
+  return re.match(password_regex, password) is not None
+`;
+
+export const rustSnippetBalanced = `
+use regex::Regex;
+
+fn is_valid_password(password: &str) -> bool {
+  let password_regex = Regex::new("${balancedRegex}")
+    .expect("Could not parse password validation regex");
+  password_regex.is_match(password)
+}
+`;
+
+export const goSnippetBalanced = `
+package main
+
+import (
+  "regexp"
+)
+
+func isValidPassword(password string) bool {
+  passwordRegex := "${balancedRegex}"
+  re := regexp.MustCompile(passwordRegex)
+  return re.MatchString(password)
+}
+`;
+
+export const swiftSnippetBalanced = `
+import Foundation
+
+func isValidPassword(_ password: String) -> Bool {
+  let passwordRegex = "${balancedRegex}"
+  return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
+}
+`;
+
+export const csharpSnippetBalanced = `
+using System;
+using System.Text.RegularExpressions;
+
+class Application {
+  static bool IsValidPassword(string password) {
+    string passwordRegex = "${balancedRegex}";
+    return Regex.IsMatch(password, passwordRegex);
+  }
+}
+`;
+
+export const javaSnippetBalanced = `
+import java.util.regex.*;
+
+public class Application {
+  public static boolean isValidPassword(String password) {
+    String passwordRegex = "${balancedRegex}";
+    Pattern pattern = Pattern.compile(passwordRegex);
+    Matcher matcher = pattern.matcher(password);
+    return matcher.matches();
+  }
+}
+`;
+
+export const phpSnippetBalanced = `
+<?php
+function isValidPassword($password) {
+  $passwordRegex = "${balancedRegex}";
+  return preg_match("/" . $passwordRegex . "/", $password);
+}
+?>
+`;
+
+export const jsSnippetMinimal = `
+const passwordRegex = /${minimalRegex}/;
+
+const isValidPassword = (password) => passwordRegex.test(password);
+`;
+
+export const pySnippetMinimal = `
+import re
+
+def is_valid_password(password):
+  password_regex = r"${minimalRegex}"
+  return re.match(password_regex, password) is not None
+`;
+
+export const rustSnippetMinimal = `
+use regex::Regex;
+
+fn is_valid_password(password: &str) -> bool {
+  let password_regex = Regex::new("${minimalRegex}")
+    .expect("Could not parse password validation regex");
+  password_regex.is_match(password)
+}
+`;
+
+export const goSnippetMinimal = `
+package main
+
+import (
+  "regexp"
+)
+
+func isValidPassword(password string) bool {
+  passwordRegex := "${minimalRegex}"
+  re := regexp.MustCompile(passwordRegex)
+  return re.MatchString(password)
+}
+`;
+
+export const swiftSnippetMinimal = `
+import Foundation
+
+func isValidPassword(_ password: String) -> Bool {
+  let passwordRegex = "${minimalRegex}"
+  return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
+}
+`;
+
+export const csharpSnippetMinimal = `
+using System;
+using System.Text.RegularExpressions;
+
+class Application {
+  static bool IsValidPassword(string password) {
+    string passwordRegex = "${minimalRegex}";
+    return Regex.IsMatch(password, passwordRegex);
+  }
+}
+`;
+
+export const javaSnippetMinimal = `
+import java.util.regex.*;
+
+public class Application {
+  public static boolean isValidPassword(String password) {
+    String passwordRegex = "${minimalRegex}";
+    Pattern pattern = Pattern.compile(passwordRegex);
+    Matcher matcher = pattern.matcher(password);
+    return matcher.matches();
+  }
+}
+`;
+
+export const phpSnippetMinimal = `
+<?php
+function isValidPassword($password) {
+  $passwordRegex = "${minimalRegex}";
+  return preg_match("/" . $passwordRegex . "/", $password);
+}
+?>
+`;
+
 export const strictTestCases: TestCase[] = [
   { pattern: "Str0ng!Pass", isValid: true },
   { pattern: "A1!bcdef", isValid: true },

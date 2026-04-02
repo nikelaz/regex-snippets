@@ -19,6 +19,22 @@ import {
   csharpSnippet,
   javaSnippet,
   phpSnippet,
+  jsSnippetBalanced,
+  pySnippetBalanced,
+  rustSnippetBalanced,
+  goSnippetBalanced,
+  swiftSnippetBalanced,
+  csharpSnippetBalanced,
+  javaSnippetBalanced,
+  phpSnippetBalanced,
+  jsSnippetMinimal,
+  pySnippetMinimal,
+  rustSnippetMinimal,
+  goSnippetMinimal,
+  swiftSnippetMinimal,
+  csharpSnippetMinimal,
+  javaSnippetMinimal,
+  phpSnippetMinimal,
 } from "../../../../data/password";
 
 const Password = () => {
@@ -64,31 +80,15 @@ const Password = () => {
         </List>
       </Stack>
       <Stack gap="lg">
-        <Title order={3}>Recommended Solution</Title>
+        <Title order={2}>Strict Validation</Title>
+        <Text>
+          Use this policy when you need explicit complexity requirements: lowercase, uppercase, digit, special
+          character, 8 to 64 characters, and no whitespace.
+        </Text>
         <CodeHighlight code={strictRegex} language="txt" />
       </Stack>
       <Stack gap="lg">
-        <Title order={3}>Alternative Patterns</Title>
-        <Tabs defaultValue="strict">
-          <Tabs.List>
-            <Tabs.Tab value="strict">Strict</Tabs.Tab>
-            <Tabs.Tab value="balanced">Balanced</Tabs.Tab>
-            <Tabs.Tab value="minimal">Minimal</Tabs.Tab>
-          </Tabs.List>
-
-          <Tabs.Panel value="strict">
-            <CodeHighlight code={strictRegex} language="txt" />
-          </Tabs.Panel>
-          <Tabs.Panel value="balanced">
-            <CodeHighlight code={balancedRegex} language="txt" />
-          </Tabs.Panel>
-          <Tabs.Panel value="minimal">
-            <CodeHighlight code={minimalRegex} language="txt" />
-          </Tabs.Panel>
-        </Tabs>
-      </Stack>
-      <Stack gap="lg">
-        <Title order={3}>How The Strict Pattern Works</Title>
+        <Title order={3}>Explanation</Title>
         <List spacing="sm">
           <List.Item>
             <Code>{`^`}</Code> - Start of the string.
@@ -166,47 +166,171 @@ const Password = () => {
       </Stack>
       <Stack gap="lg">
         <Title order={3}>Test Cases</Title>
-        <Tabs defaultValue="strict">
+        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Input</Table.Th>
+              <Table.Th>Valid</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{testCaseRows(strictTestCases)}</Table.Tbody>
+        </Table>
+      </Stack>
+
+      <Stack gap="lg">
+        <Title order={2}>Balanced Validation</Title>
+        <Text>
+          Use this when you want a lighter policy: at least one letter, at least one digit, 8 to 64 characters,
+          and no whitespace. Special characters are allowed but not required.
+        </Text>
+        <CodeHighlight code={balancedRegex} language="txt" />
+      </Stack>
+      <Stack gap="lg">
+        <Title order={3}>Explanation</Title>
+        <List spacing="sm">
+          <List.Item>
+            <Code>{`^`}</Code> - Start of the string.
+          </List.Item>
+          <List.Item>
+            <Code>{`(?=.*[A-Za-z])`}</Code> - Requires at least one ASCII letter.
+          </List.Item>
+          <List.Item>
+            <Code>{`(?=.*\\d)`}</Code> - Requires at least one digit.
+          </List.Item>
+          <List.Item>
+            <Code>{`\\S{8,64}`}</Code> - Requires 8 to 64 non-whitespace characters.
+          </List.Item>
+          <List.Item>
+            <Code>{`$`}</Code> - End of the string.
+          </List.Item>
+        </List>
+      </Stack>
+      <Stack gap="lg">
+        <Title order={3}>Implementation</Title>
+        <Tabs defaultValue="js">
           <Tabs.List>
-            <Tabs.Tab value="strict">Strict</Tabs.Tab>
-            <Tabs.Tab value="balanced">Balanced</Tabs.Tab>
-            <Tabs.Tab value="minimal">Minimal</Tabs.Tab>
+            <Tabs.Tab value="js">JavaScript</Tabs.Tab>
+            <Tabs.Tab value="python">Python</Tabs.Tab>
+            <Tabs.Tab value="rust">Rust</Tabs.Tab>
+            <Tabs.Tab value="go">Go</Tabs.Tab>
+            <Tabs.Tab value="swift">Swift</Tabs.Tab>
+            <Tabs.Tab value="csharp">C#</Tabs.Tab>
+            <Tabs.Tab value="java">Java</Tabs.Tab>
+            <Tabs.Tab value="php">PHP</Tabs.Tab>
           </Tabs.List>
 
-          <Tabs.Panel value="strict">
-            <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-              <Table.Thead>
-                <Table.Tr>
-                  <Table.Th>Input</Table.Th>
-                  <Table.Th>Valid</Table.Th>
-                </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>{testCaseRows(strictTestCases)}</Table.Tbody>
-            </Table>
+          <Tabs.Panel value="js">
+            <CodeHighlight code={jsSnippetBalanced.trim()} language="js" />
           </Tabs.Panel>
-          <Tabs.Panel value="balanced">
-            <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-              <Table.Thead>
-                <Table.Tr>
-                  <Table.Th>Input</Table.Th>
-                  <Table.Th>Valid</Table.Th>
-                </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>{testCaseRows(balancedTestCases)}</Table.Tbody>
-            </Table>
+          <Tabs.Panel value="python">
+            <CodeHighlight code={pySnippetBalanced.trim()} language="py" />
           </Tabs.Panel>
-          <Tabs.Panel value="minimal">
-            <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
-              <Table.Thead>
-                <Table.Tr>
-                  <Table.Th>Input</Table.Th>
-                  <Table.Th>Valid</Table.Th>
-                </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>{testCaseRows(minimalTestCases)}</Table.Tbody>
-            </Table>
+          <Tabs.Panel value="rust">
+            <CodeHighlight code={rustSnippetBalanced.trim()} language="rust" />
+          </Tabs.Panel>
+          <Tabs.Panel value="go">
+            <CodeHighlight code={goSnippetBalanced.trim()} language="go" />
+          </Tabs.Panel>
+          <Tabs.Panel value="swift">
+            <CodeHighlight code={swiftSnippetBalanced.trim()} language="swift" />
+          </Tabs.Panel>
+          <Tabs.Panel value="csharp">
+            <CodeHighlight code={csharpSnippetBalanced.trim()} language="csharp" />
+          </Tabs.Panel>
+          <Tabs.Panel value="java">
+            <CodeHighlight code={javaSnippetBalanced.trim()} language="java" />
+          </Tabs.Panel>
+          <Tabs.Panel value="php">
+            <CodeHighlight code={phpSnippetBalanced.trim()} language="php" />
           </Tabs.Panel>
         </Tabs>
+      </Stack>
+      <Stack gap="lg">
+        <Title order={3}>Test Cases</Title>
+        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Input</Table.Th>
+              <Table.Th>Valid</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{testCaseRows(balancedTestCases)}</Table.Tbody>
+        </Table>
+      </Stack>
+
+      <Stack gap="lg">
+        <Title order={2}>Minimal Validation</Title>
+        <Text>
+          Use this when the main requirement is length and no spaces. It accepts any non-whitespace characters
+          from 8 to 64 characters long and leaves strength decisions to users or password managers.
+        </Text>
+        <CodeHighlight code={minimalRegex} language="txt" />
+      </Stack>
+      <Stack gap="lg">
+        <Title order={3}>Explanation</Title>
+        <List spacing="sm">
+          <List.Item>
+            <Code>{`^`}</Code> - Start of the string.
+          </List.Item>
+          <List.Item>
+            <Code>{`\\S{8,64}`}</Code> - Requires 8 to 64 non-whitespace characters.
+          </List.Item>
+          <List.Item>
+            <Code>{`$`}</Code> - End of the string.
+          </List.Item>
+        </List>
+      </Stack>
+      <Stack gap="lg">
+        <Title order={3}>Implementation</Title>
+        <Tabs defaultValue="js">
+          <Tabs.List>
+            <Tabs.Tab value="js">JavaScript</Tabs.Tab>
+            <Tabs.Tab value="python">Python</Tabs.Tab>
+            <Tabs.Tab value="rust">Rust</Tabs.Tab>
+            <Tabs.Tab value="go">Go</Tabs.Tab>
+            <Tabs.Tab value="swift">Swift</Tabs.Tab>
+            <Tabs.Tab value="csharp">C#</Tabs.Tab>
+            <Tabs.Tab value="java">Java</Tabs.Tab>
+            <Tabs.Tab value="php">PHP</Tabs.Tab>
+          </Tabs.List>
+
+          <Tabs.Panel value="js">
+            <CodeHighlight code={jsSnippetMinimal.trim()} language="js" />
+          </Tabs.Panel>
+          <Tabs.Panel value="python">
+            <CodeHighlight code={pySnippetMinimal.trim()} language="py" />
+          </Tabs.Panel>
+          <Tabs.Panel value="rust">
+            <CodeHighlight code={rustSnippetMinimal.trim()} language="rust" />
+          </Tabs.Panel>
+          <Tabs.Panel value="go">
+            <CodeHighlight code={goSnippetMinimal.trim()} language="go" />
+          </Tabs.Panel>
+          <Tabs.Panel value="swift">
+            <CodeHighlight code={swiftSnippetMinimal.trim()} language="swift" />
+          </Tabs.Panel>
+          <Tabs.Panel value="csharp">
+            <CodeHighlight code={csharpSnippetMinimal.trim()} language="csharp" />
+          </Tabs.Panel>
+          <Tabs.Panel value="java">
+            <CodeHighlight code={javaSnippetMinimal.trim()} language="java" />
+          </Tabs.Panel>
+          <Tabs.Panel value="php">
+            <CodeHighlight code={phpSnippetMinimal.trim()} language="php" />
+          </Tabs.Panel>
+        </Tabs>
+      </Stack>
+      <Stack gap="lg">
+        <Title order={3}>Test Cases</Title>
+        <Table striped highlightOnHover withTableBorder withColumnBorders mb="xl">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Input</Table.Th>
+              <Table.Th>Valid</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{testCaseRows(minimalTestCases)}</Table.Tbody>
+        </Table>
       </Stack>
     </Stack>
   );

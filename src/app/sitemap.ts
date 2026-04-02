@@ -9,6 +9,7 @@ const routes = [
   { path: '/time', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/alphanumeric', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/username', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/hex-color-code', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/password', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/text-length', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/number-of-lines', priority: 0.8, changeFrequency: 'monthly' as const },
