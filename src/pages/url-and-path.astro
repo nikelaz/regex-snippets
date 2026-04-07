@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import URLPage from '../components/pages/URLPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['url-and-path'];
+const jsonLd = generateHowToJsonLd('url-and-path');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <URLPage client:load />
+</Layout>

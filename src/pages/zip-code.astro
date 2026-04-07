@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ZipCodePage from '../components/pages/ZipCodePage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['zip-code'];
+const jsonLd = generateHowToJsonLd('zip-code');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <ZipCodePage client:load />
+</Layout>

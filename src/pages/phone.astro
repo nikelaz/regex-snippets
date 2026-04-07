@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PhonePage from '../components/pages/PhonePage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['phone'];
+const jsonLd = generateHowToJsonLd('phone');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <PhonePage client:load />
+</Layout>

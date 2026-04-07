@@ -1,0 +1,9 @@
+:root {
+  --color-primary-text: #f8f9fa;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-primary-text: #212529;
+  }
+}

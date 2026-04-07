@@ -1,0 +1,12 @@
+@import 'highlight.js/styles/a11y-light.css' (prefers-color-scheme: light);
+@import 'highlight.js/styles/a11y-dark.css' (prefers-color-scheme: dark);
+
+[data-mantine-color-scheme="light"] .hljs {
+  background: #fefefe;
+  color: #545454;
+}
+
+[data-mantine-color-scheme="dark"] .hljs {
+  background: #2b2b2b;
+  color: #f8f8f2;
+}

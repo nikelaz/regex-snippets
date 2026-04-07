@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import IPAddressPage from '../components/pages/IPAddressPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['ip-address'];
+const jsonLd = generateHowToJsonLd('ip-address');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <IPAddressPage client:load />
+</Layout>

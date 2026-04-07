@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HTMLTagPage from '../components/pages/HTMLTagPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['html-tag'];
+const jsonLd = generateHowToJsonLd('html-tag');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <HTMLTagPage client:load />
+</Layout>

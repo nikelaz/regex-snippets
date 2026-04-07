@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AffirmationPage from '../components/pages/AffirmationPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['affirmation'];
+const jsonLd = generateHowToJsonLd('affirmation');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <AffirmationPage client:load />
+</Layout>

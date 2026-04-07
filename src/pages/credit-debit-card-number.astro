@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CreditCardPage from '../components/pages/CreditCardPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['credit-debit-card-number'];
+const jsonLd = generateHowToJsonLd('credit-debit-card-number');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <CreditCardPage client:load />
+</Layout>

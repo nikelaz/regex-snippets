@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import WindowsPathPage from '../components/pages/WindowsPathPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['windows-path'];
+const jsonLd = generateHowToJsonLd('windows-path');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <WindowsPathPage client:load />
+</Layout>
