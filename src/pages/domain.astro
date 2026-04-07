@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DomainPage from '../components/pages/DomainPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['domain'];
+const jsonLd = generateHowToJsonLd('domain');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <DomainPage client:load />
+</Layout>

@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import UnixPathPage from '../components/pages/UnixPathPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['unix-path'];
+const jsonLd = generateHowToJsonLd('unix-path');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <UnixPathPage client:load />
+</Layout>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://regex-snippets.com/sitemap-index.xml

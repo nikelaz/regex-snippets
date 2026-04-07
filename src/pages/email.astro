@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EmailPage from '../components/pages/EmailPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['email'];
+const jsonLd = generateHowToJsonLd('email');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <EmailPage client:load />
+</Layout>

@@ -1,0 +1,67 @@
+---
+import '@mantine/core/styles.css';
+import '@mantine/code-highlight/styles.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string[];
+  jsonLd?: object;
+  path?: string;
+}
+
+const { title, description, keywords, jsonLd, path = '/' } = Astro.props;
+const BASE_URL = 'https://regex-snippets.com';
+const canonicalUrl = `${BASE_URL}${path}`;
+const isHome = path === '/';
+const fullTitle = isHome ? title : `${title} | RegEx Snippets`;
+const ogType = isHome ? 'website' : 'article';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-mantine-color-scheme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.svg" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords.join(', ')} />}
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="RegEx Snippets" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="RegEx Snippets" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Mantine color scheme script - must run before render to avoid FOUC -->
+    <script is:inline>
+      try {
+        var c = localStorage.getItem('mantine-color-scheme-value');
+        if (c === 'light' || c === 'dark') {
+          document.documentElement.setAttribute('data-mantine-color-scheme', c);
+        } else {
+          var mq = window.matchMedia('(prefers-color-scheme: dark)');
+          document.documentElement.setAttribute('data-mantine-color-scheme', mq.matches ? 'dark' : 'light');
+        }
+      } catch(e) {}
+    </script>
+
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <slot />
+    <script is:inline async src="//gc.zgo.at/count.js" data-goatcounter="https://regex-snippets.goatcounter.com/count"></script>
+  </body>
+</html>

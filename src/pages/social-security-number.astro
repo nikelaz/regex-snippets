@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SSNPage from '../components/pages/SSNPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['social-security-number'];
+const jsonLd = generateHowToJsonLd('social-security-number');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <SSNPage client:load />
+</Layout>

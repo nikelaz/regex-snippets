@@ -1,0 +1,89 @@
+import {
+  IconHome,
+  IconMail,
+  IconPhone,
+  IconCalendarWeek,
+  IconClock,
+  IconSortAZ,
+  IconAt,
+  IconPalette,
+  IconLock,
+  IconRuler2,
+  IconAlignLeft,
+  IconCheck,
+  IconId,
+  IconBook,
+  IconMapPin,
+  IconCreditCard,
+  IconNumber123,
+  IconLink,
+  IconRouter,
+  IconWorldWww,
+  IconBrandWindows,
+  IconFile,
+  IconCode,
+} from '@tabler/icons-react';
+import { Text, Anchor } from '@mantine/core';
+import classes from './nav.module.css';
+
+const main = [
+  { link: '/', label: 'Overview', icon: IconHome },
+];
+
+const templates = [
+  { link: '/email', label: 'Email', icon: IconMail },
+  { link: '/phone', label: 'Phone', icon: IconPhone },
+  { link: '/date', label: 'Date', icon: IconCalendarWeek },
+  { link: '/time', label: 'Time', icon: IconClock },
+  { link: '/alphanumeric', label: 'Alphanumeric', icon: IconSortAZ },
+  { link: '/username', label: 'Username', icon: IconAt },
+  { link: '/hex-color-code', label: 'Hex Color', icon: IconPalette },
+  { link: '/password', label: 'Password', icon: IconLock },
+  { link: '/text-length', label: 'Text Length', icon: IconRuler2 },
+  { link: '/number-of-lines', label: 'Number of Lines', icon: IconAlignLeft },
+  { link: '/affirmation', label: 'Affirmation', icon: IconCheck },
+  { link: '/social-security-number', label: 'Social Security', icon: IconId },
+  { link: '/isbn', label: 'ISBN', icon: IconBook },
+  { link: '/zip-code', label: 'ZIP Code', icon: IconMapPin },
+  { link: '/credit-debit-card-number', label: 'Credit/Debit Card', icon: IconCreditCard },
+  { link: '/numbers', label: 'Numbers', icon: IconNumber123 },
+  { link: '/domain', label: 'Domain', icon: IconWorldWww },
+  { link: '/url-and-path', label: 'URL & Path', icon: IconLink },
+  { link: '/ip-address', label: 'IP Address', icon: IconRouter },
+  { link: '/html-tag', label: 'HTML Tag', icon: IconCode },
+  { link: '/unix-path', label: 'Unix Path', icon: IconFile },
+  { link: '/windows-path', label: 'Windows Path', icon: IconBrandWindows },
+];
+
+type NavProps = Readonly<{
+  currentPath: string;
+  toggleMobileNav: () => void;
+}>;
+
+const Nav = (props: NavProps) => {
+  const getLinks = (data: typeof main | typeof templates) => data.map((item) => (
+    <Anchor
+      className={classes.link}
+      data-active={props.currentPath === item.link || undefined}
+      underline="never"
+      href={item.link}
+      key={item.link}
+      onClick={props.toggleMobileNav}
+    >
+      <item.icon className={classes.linkIcon} stroke={1.5} />
+      <span>{item.label}</span>
+    </Anchor>
+  ));
+
+  return (
+    <nav className={classes.navbar}>
+      <div className={classes.navbarMain}>
+        {getLinks(main)}
+        <Text tt="uppercase" size="sm" color="var(--color-primary-text)" fw={600} px="sm" mt="md" mb="sm">Validation Templates</Text>
+        {getLinks(templates)}
+      </div>
+    </nav>
+  );
+};
+
+export default Nav;

@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TimePage from '../components/pages/TimePage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['time'];
+const jsonLd = generateHowToJsonLd('time');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <TimePage client:load />
+</Layout>

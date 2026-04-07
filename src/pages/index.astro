@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HomePage from '../components/pages/HomePage';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'RegEx Snippets',
+  description: 'Ready-to-use regular expression snippets for common validation tasks',
+  url: 'https://regex-snippets.com',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'https://regex-snippets.com/?search={search_term_string}',
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+---
+
+<Layout
+  title="RegEx Snippets - Ready-to-Use Regular Expression Patterns"
+  description="Your go-to resource for ready-to-use regular expressions for common validation tasks. Validate emails, phone numbers, dates, URLs, and more with well-tested regex patterns."
+  keywords={['regex snippets', 'regular expressions', 'validation patterns', 'email regex', 'phone regex', 'JavaScript regex', 'Python regex']}
+  path="/"
+  jsonLd={jsonLd}
+>
+  <HomePage client:load />
+</Layout>

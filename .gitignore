@@ -87,6 +87,10 @@ web_modules/
 .next
 out
 
+# Astro build output
+.astro/
+dist/
+
 # Nuxt.js build / generate output
 .nuxt
 dist

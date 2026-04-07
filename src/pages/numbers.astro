@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NumbersPage from '../components/pages/NumbersPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['numbers'];
+const jsonLd = generateHowToJsonLd('numbers');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <NumbersPage client:load />
+</Layout>

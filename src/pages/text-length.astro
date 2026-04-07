@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TextLengthPage from '../components/pages/TextLengthPage';
+import { pagesMetadata, generateHowToJsonLd } from '../lib/seo';
+
+const meta = pagesMetadata['text-length'];
+const jsonLd = generateHowToJsonLd('text-length');
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  path={meta.path}
+  jsonLd={jsonLd ?? undefined}
+>
+  <TextLengthPage client:load />
+</Layout>
